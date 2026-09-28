@@ -1,13 +1,13 @@
-# Wollok Game: Título de juego
+# Wollok Game: Escape Gatuno
 
-**Grupo:** Nombre de Grupo
+**Grupo:** Self Control
 
 **Integrantes:**
-- Nombre y Apellido
-- Nombre y Apellido
-- Nombre y Apellido
-- Nombre y Apellido
-- Nombre y Apellido
+- Thiago Lautaro Radita 
+- Tamara Baldiviezo
+- Fernando Cruz
+- Anna Catherine Vidal
+- Vanina Huarcaya
 
 ## Consignas
 

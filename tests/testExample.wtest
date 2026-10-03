@@ -17,4 +17,12 @@ describe "groupo de tests" {
     assert.equals(0, gatito.energia())
     assert.equals(2, gatito.felicidad())
   }
+
+  test "si pierde el gatito pierde una vida"{
+        gatito.vida(7)
+        gatito.perderVida()
+
+        assert.equals(6, gatito.vida())
+    }
+
 }

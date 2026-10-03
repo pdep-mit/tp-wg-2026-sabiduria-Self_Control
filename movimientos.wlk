@@ -75,11 +75,4 @@ object movimientoDeLaCaja{
     
 }
 
-object seguirAlGato{
 
-    method seguir(perro, gato){
-    if(perro.position().y() < gato.position().y()){
-        movimiento.mover(perro, haciaArriba)
-    }
-}
-}

@@ -44,4 +44,13 @@ object config{
         movimientoDeLaCaja.moverse(caja)
     })
 }
+
+
+method configurarColisiones(){
+	//gato pierde una vida cuando choca con el perro
+	game.onCollideDo(perro, {alguien => alguien.perderVida()})
+
+    //gato juega cuando choca con el ovillo
+	game.onCollideDo(ovillo, {alguien => alguien.jugar()})
+}
 }

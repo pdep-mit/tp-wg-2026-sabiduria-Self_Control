@@ -24,7 +24,11 @@ Recuerden que para cada checkpoint hay [expectativas mínimas](https://docs.goog
 
 ## Objetivo
 
-TODO
+Nuestro juego consiste en que un gatito logre huir de una casa desconocida. A lo largo del juego, deberá enfrentarse a distintos obstáculos que tendrá que superar para evitar perder vidas.
+
+La casa estará formada por distintas habitaciones a las que podrá acceder consiguiendo la llave correspondiente para abrir cada puerta. Cada habitación será un nuevo nivel, con obstáculos y desafíos de dificultad creciente.
+
+El jugador deberá administrar las vidas y utilizar los distintos recursos disponibles para superar los desafíos de cada nivel.
 
 ## Controles
 

@@ -19,10 +19,10 @@ describe "groupo de tests" {
   }
 
   test "si pierde el gatito pierde una vida"{
-        gatito.vida(7)
+        gatito.vidas(7)
         gatito.perderVida()
 
-        assert.equals(6, gatito.vida())
+        assert.equals(6, gatito.vidas())
     }
 
 }

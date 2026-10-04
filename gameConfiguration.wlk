@@ -7,8 +7,8 @@ import wollok.game.*
 
 object config{
 
-	method alturaMaxima() = 10
-	method anchoMaximo() = 10
+	method alturaMaxima() = 15
+	method anchoMaximo() = 15
 
     method configurarJuego(){
 		self.configurarVentana()
@@ -22,13 +22,14 @@ object config{
 		game.title("CatSurvivor")
 		game.height(self.alturaMaxima())
 		game.width(self.anchoMaximo())
-		game.boardGround("casa.png")
+		game.boardGround("escenario.jpg")
 	}
 
     method agregarComponentesVisuales(){
         game.addVisual(gatito)
 		game.addVisual(caja)
 		game.addVisual(perro)
+		game.addVisual(patioDeJuego)
     }
 
     method configurarAcciones(){

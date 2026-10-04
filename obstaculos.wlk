@@ -18,3 +18,8 @@ object ovillo {
 
     method image() = "ovillo.png"
 }
+object patioDeJuego {
+    var property position = game.at(13,10)
+
+    method image() = "patioDeJuego.png"
+}

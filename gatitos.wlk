@@ -25,5 +25,16 @@ object gatito{
     self.calcularFelicidad(+2)
   } 
 
+  method perderVida(){
+        vidas = (vidas - 1)
+        //game.say(self, "me mataron :c")
+
+        if(vidas == -1 ){
+            vidas = 7
+        }
+
+        self.position(game.origin())
+    }
+
 }
 

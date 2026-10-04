@@ -10,7 +10,7 @@ object caja {
 object perro {
     var property position = game.at(6,6)
 
-    method image() = "perro.png"
+    method image() = "perroEjemplo.png"
 }
 
 object ovillo {

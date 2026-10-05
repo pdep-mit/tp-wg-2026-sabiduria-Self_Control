@@ -1,10 +1,28 @@
 // Archivo de tests de referencia, borrar luego de desarrollar propios
 import example.*
-
+import gatitos.*
 describe "groupo de tests" {
 
   test "Payer comeinza en el centro del tabler" {
     assert.equals(game.center(), player.position())
   }
+
+  test "arranca con energia 100 y felicidad 0" {
+    assert.equals(100, gatito.energia())
+    assert.equals(0, gatito.felicidad())
+  }
+  test "jugar sube felicidad y baja energia"{
+    gatito.calcularEnergia(-85)
+    gatito.jugar()
+    assert.equals(0, gatito.energia())
+    assert.equals(2, gatito.felicidad())
+  }
+
+  test "si pierde el gatito pierde una vida"{
+        gatito.vidas(7)
+        gatito.perderVida()
+
+        assert.equals(6, gatito.vidas())
+    }
 
 }

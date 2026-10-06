@@ -58,12 +58,18 @@ object ovillo {
 
 object platoDeComida {
     var property position = game.at(10,4)
+    var estaVacio = false
 
-    method image() = "platoDeComida.png"
-
+    method image() {
+        if (estaVacio) {
+            return "platoDeComidaVacio.png"
+        } else {
+            return "platoDeComida.png" 
+        }
+    }
     method interactuarCon(unGatito) {
         unGatito.comer()
-        game.removeVisual(self) // El plato desaparece de la pantalla
+        estaVacio = true
     }
 }
 

@@ -62,8 +62,8 @@ object patioDeJuego {
     var property position = game.at(13,10)
 
     method image() = "patioDeJuego.png"
-
-    method interactuarCon(unGatito) {
+    method interactuarCon(unGatito){
+        unGatito.jugar()
         unGatito.jugar()
     }
 }

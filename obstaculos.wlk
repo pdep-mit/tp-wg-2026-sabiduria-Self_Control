@@ -8,11 +8,20 @@ import movimientos.*
 
 object perro {
     var property position = game.at(6,6)
+    var estaDormido = true
 
-    method image() = "perroEjemplo.png"
+    method image() {
+        if(estaDormido) {
+            return "perroDormido.png"
+        } else {
+            return "perroDespierto.png"
+        }
+    }
 
     method interactuarCon(unGatito) {
+        estaDormido = false
         unGatito.perderVida()
+        game.schedule(2000, { estaDormido = true }) // El perro se vuelve a dormir después de 2 segundos
     }
 }
 

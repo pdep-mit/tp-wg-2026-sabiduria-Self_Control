@@ -31,6 +31,7 @@ object config{
 		/*game.addVisual(caja)*/
 		game.addVisual(ovillo)
 		game.addVisual(perro)
+		game.addVisual(parteTraseraPerro)
 		game.addVisual(patioDeJuego)
 		game.addVisual(platoDeComida)
     }

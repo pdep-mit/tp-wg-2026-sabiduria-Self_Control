@@ -25,6 +25,17 @@ object perro {
     }
 }
 
+object parteTraseraPerro {
+    var property position = game.at(7, 6) //a la derecha del perro 
+
+    method image() = "imagenInvisible.png"
+
+    method interactuarCon(unGatito) {
+        perro.interactuarCon(unGatito)
+    }
+}
+
+
 object ovillo {
     var property position = game.at(2,2) 
 

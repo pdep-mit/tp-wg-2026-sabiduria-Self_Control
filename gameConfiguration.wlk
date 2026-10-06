@@ -34,6 +34,7 @@ object config{
 		game.addVisual(parteTraseraPerro)
 		game.addVisual(patioDeJuego)
 		game.addVisual(platoDeComida)
+		game.addVisual(puerta)
     }
 
     method configurarAcciones(){

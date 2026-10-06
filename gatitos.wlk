@@ -46,4 +46,8 @@ object gatito{
     //Usamos schedule para dar mas tiempo para leer el mensaje
   }
 
+  method ganarJuego(mensaje){
+    game.say(self, mensaje)
+  }
+
 }

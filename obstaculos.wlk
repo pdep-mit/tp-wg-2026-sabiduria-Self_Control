@@ -67,3 +67,26 @@ object patioDeJuego {
         unGatito.jugar()
     }
 }
+
+object puerta {
+    var property position = game.at(5, 11)
+
+    method image() = "puerta.png"
+
+    method interactuarCon(unGatito) {
+        unGatito.ganarJuego("GANO! EL SIGUIENTE NIVEL LO ESPERA")
+       //game.removeVisual(unGatito) //el gatito pasa al siguiente nivel 
+    }
+}
+
+object puerta2{
+    var property position = game.at(6.3, 11)
+
+    method image() = "puertainvisible.png"
+
+    method interactuarCon(unGatito) {
+        unGatito.ganarJuego("GANO! EL SIGUIENTE NIVEL LO ESPERA")
+       //game.removeVisual(unGatito) //el gatito pasa al siguiente nivel 
+    }
+
+}

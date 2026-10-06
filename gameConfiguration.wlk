@@ -14,6 +14,7 @@ object config{
 		self.configurarVentana()
 		self.agregarComponentesVisuales()
 		self.configurarAcciones()
+		self.configurarColisiones()
 		//self.iniciarMovimientoCaja()
 		
 	}
@@ -28,6 +29,7 @@ object config{
     method agregarComponentesVisuales(){
         game.addVisual(gatito)
 		/*game.addVisual(caja)*/
+		game.addVisual(ovillo)
 		game.addVisual(perro)
 		game.addVisual(patioDeJuego)
 		game.addVisual(platoDeComida)

@@ -14,7 +14,7 @@ object config{
 		self.configurarVentana()
 		self.agregarComponentesVisuales()
 		self.configurarAcciones()
-		self.iniciarMovimientoCaja()
+		//self.iniciarMovimientoCaja()
 		
 	}
 
@@ -27,9 +27,10 @@ object config{
 
     method agregarComponentesVisuales(){
         game.addVisual(gatito)
-		game.addVisual(caja)
+		/*game.addVisual(caja)*/
 		game.addVisual(perro)
 		game.addVisual(patioDeJuego)
+		game.addVisual(platoDeComida)
     }
 
     method configurarAcciones(){
@@ -39,19 +40,15 @@ object config{
 		keyboard.right().onPressDo({ movimiento.mover(gatito, haciaLaDerecha) })
     }
 
-	method iniciarMovimientoCaja() {
-		//hacer algo repetidamente cada cierto tiempo
-    game.onTick(500, "moverCaja", {
-        movimientoDeLaCaja.moverse(caja)
-    })
-}
+    /*method iniciarMovimientoCaja() {//hacer algo repetidamente cada cierto tiempo
+    //game.onTick(500, "moverCaja", {
+    //    movimientoDeLaCaja.moverse(caja)
+    //})
+	}*/
 
+	method configurarColisiones(){
+		game.onCollideDo(gatito, { elemento => elemento.interactuarCon(gatito) })  
+		/*Aplicamos polimorfismo para que el gatito interactue con cualquier elemento que choque*/
+	}
 
-method configurarColisiones(){
-	//gato pierde una vida cuando choca con el perro
-	game.onCollideDo(perro, {alguien => alguien.perderVida()})
-
-    //gato juega cuando choca con el ovillo
-	game.onCollideDo(ovillo, {alguien => alguien.jugar()})
-}
 }

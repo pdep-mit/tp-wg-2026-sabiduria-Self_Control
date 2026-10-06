@@ -6,7 +6,7 @@ object gatito{
 
 	method image() = "gatito.png"
 
-    method energia() {
+  method energia() {
     return energia
   }
   method calcularEnergia(variable) {
@@ -29,12 +29,21 @@ object gatito{
   }
 
   method perderVida(){
-        vidas = vidas - 1
-        //game.say(self, "me mataron :c")
-
-        if(vidas == 0 ){
-            self.position(game.origin())
-        }
+    vidas = vidas - 1
+  
+    if(vidas <= 0) {
+      self.terminarJuego("¡Te quedaste sin vidas! Game Over.")
+    } else {
+      self.position(game.origin()) // Vuelve al inicio si aún tiene vidas
+      game.say(self, "¡Auch! Me quedan " + vidas.toString() + " vidas")
+      //Mensaje temporal hasta que pongamos una interfaz visual para mostrar las vidas restantes
     }
+  }
+
+  method terminarJuego(mensaje) {
+    game.say(self, mensaje)
+    game.schedule(2000, { game.stop() }) 
+    //Usamos schedule para dar mas tiempo para leer el mensaje
+  }
 
 }

@@ -8,33 +8,30 @@ object movimiento {
 }
 
 object haciaArriba {
-	// TODO: no se puede subir más arriba del suelo, donde está la casa
 	method posicionSiguiente(posicion) { 
-        if (posicion.y() == config.alturaMaxima()-1){
+        if (posicion.y() == config.alturaMaxima()-1 || posicion.y()==config.alturaLimiteSuperior()){
             return posicion
         }else {
             return posicion.up(1)
+            console.println(posicion)
         }
     }
 }
 
 object haciaAbajo {
-	// TODO: no se puede bajar más allá del y = 0
-	
+	//Limite en eje vertical restringido,no puede bajar más allá del y = 0
 	method posicionSiguiente(posicion) {
-		
-		 if(posicion.y()==0){
+		 if(posicion.y()==0 || config.alturaMaxima()-16==posicion.y()){
 			return posicion
 			} else {
 				return posicion.down(1)
 			}
-		 
 }
 }
 
 object haciaLaDerecha {
 	method posicionSiguiente(posicion) {
-        if (posicion.x() == config.anchoMaximo()-1){
+        if (posicion.x() == config.anchoMaximo()-1 || config.anchoMaximo()-2==posicion.x()){
             return posicion
         }
         else {
@@ -45,7 +42,7 @@ object haciaLaDerecha {
 
 object haciaLaIzquierda {
 	method posicionSiguiente(posicion) {
-        if (posicion.x() == 0){
+        if (posicion.x() == 0 || config.anchoMaximo()-16==posicion.x()){
             return posicion
         }
         else {

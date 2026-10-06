@@ -7,8 +7,9 @@ import wollok.game.*
 
 object config{
 
-	method alturaMaxima() = 15
-	method anchoMaximo() = 15
+	method alturaMaxima() = 17
+	method anchoMaximo() = 17
+	method alturaLimiteSuperior()= self.alturaMaxima()-4
 
     method configurarJuego(){
 		self.configurarVentana()
@@ -33,6 +34,7 @@ object config{
 		game.addVisual(perro)
 		game.addVisual(patioDeJuego)
 		game.addVisual(platoDeComida)
+		game.addVisual(puerta)
     }
 
     method configurarAcciones(){

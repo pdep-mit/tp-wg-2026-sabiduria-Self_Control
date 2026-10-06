@@ -39,7 +39,12 @@ object platoDeComida {
 }
 
 object patioDeJuego {
-    var property position = game.at(13,10)
+    var property position = game.at(14,10)
 
     method image() = "patioDeJuego.png"
+}
+
+object puerta{
+    var property position = game.at(6,0)
+    method image() ="puerta.png"
 }

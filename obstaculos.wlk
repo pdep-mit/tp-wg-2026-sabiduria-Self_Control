@@ -94,14 +94,3 @@ object puerta {
     }
 }
 
-object puerta2{
-    var property position = game.at(6.3, 11)
-
-    method image() = "puertainvisible.png"
-
-    method interactuarCon(unGatito) {
-        unGatito.ganarJuego("GANO! EL SIGUIENTE NIVEL LO ESPERA")
-       //game.removeVisual(unGatito) //el gatito pasa al siguiente nivel 
-    }
-
-}

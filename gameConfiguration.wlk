@@ -27,9 +27,9 @@ object config{
 	}
 
     method agregarComponentesVisuales(){
+		game.addVisual(ovillo)
         game.addVisual(gatito)
 		/*game.addVisual(caja)*/
-		game.addVisual(ovillo)
 		game.addVisual(perro)
 		game.addVisual(parteTraseraPerro)
 		game.addVisual(patioDeJuego)

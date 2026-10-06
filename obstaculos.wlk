@@ -38,23 +38,38 @@ object parteTraseraPerro {
 
 object ovillo {
     var property position = game.at(2,2) 
+    var estaDeshecho = false
 
-    method image() = "ovillo.png"
+    method image() {
+        if (estaDeshecho) {
+            return "ovilloDeshecho.png"
+        } else {
+            return "ovillo.png" 
+        }
+    }
 
     method interactuarCon(unGatito) {
-        unGatito.jugar()
+        if(!estaDeshecho) {
+            unGatito.jugar()
+            estaDeshecho = true
+        }
     }
 }
 
 object platoDeComida {
-    var property position = game.at(5,5)
+    var property position = game.at(10,4)
+    var estaVacio = false
 
-    method image() = "platoDeComida.png"
-
-    // Comportamiento polimórfico al chocar
+    method image() {
+        if (estaVacio) {
+            return "platoDeComidaVacio.png"
+        } else {
+            return "platoDeComida.png" 
+        }
+    }
     method interactuarCon(unGatito) {
         unGatito.comer()
-        game.removeVisual(self) // El plato desaparece de la pantalla
+        estaVacio = true
     }
 }
 

@@ -3,8 +3,19 @@ object gatito{
     var property vidas = 3
     var energia = 100//rango de 0 a 100
     var felicidad = 0//rango de 0 a 10
+    var estaJugando = false
 
-	method image() = "gatito.png"
+	method image() {
+    if (vidas <= 0) {
+        return "gatitoDerrotado.png"
+    } else if (estaJugando) {
+        return "gatitoJugando.png" 
+    } else if (felicidad >= 8) { 
+        return "gatitoFeliz.png"
+    } else {
+        return "gatito.png" 
+    }
+  }
 
   method energia() {
     return energia
@@ -21,6 +32,8 @@ object gatito{
   method jugar(){
     self.calcularEnergia(-25)
     self.calcularFelicidad(+2)
+    estaJugando = true
+    game.schedule(1000, { estaJugando = false })
   } 
 
   method comer(){ //le sumo valores iniciales "de prueba" casi 1/3 del total
@@ -30,6 +43,7 @@ object gatito{
 
   method perderVida(){
     vidas = vidas - 1
+    felicidad = 0
   
     if(vidas <= 0) {
       self.terminarJuego("¡Te quedaste sin vidas! Game Over.")

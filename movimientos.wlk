@@ -8,9 +8,9 @@ object movimiento {
 }
 
 object haciaArriba {
-	// TODO: no se puede subir más arriba del suelo, donde está la casa
+	// TODO: no se puede subir más arriba del suelo
 	method posicionSiguiente(posicion) { 
-        if (posicion.y() == config.alturaMaxima()-1){
+        if (posicion.y() == config.alturaMaxima()-4){
             return posicion
         }else {
             return posicion.up(1)
@@ -19,11 +19,12 @@ object haciaArriba {
 }
 
 object haciaAbajo {
-	// TODO: no se puede bajar más allá del y = 0
+	// TODO: no se puede bajar más allá del y = 1 para no colisionar con las paredes 
+    
 	
 	method posicionSiguiente(posicion) {
 		
-		 if(posicion.y()==0){
+		 if(posicion.y()==1){
 			return posicion
 			} else {
 				return posicion.down(1)
@@ -33,8 +34,9 @@ object haciaAbajo {
 }
 
 object haciaLaDerecha {
+    //ponemos en -2 para evitar la colision con las paredes
 	method posicionSiguiente(posicion) {
-        if (posicion.x() == config.anchoMaximo()-1){
+        if (posicion.x() == config.anchoMaximo()-2){
             return posicion
         }
         else {
@@ -44,8 +46,9 @@ object haciaLaDerecha {
 }
 
 object haciaLaIzquierda {
+    ////ponemos en 1 para evitar la colision con las paredes
 	method posicionSiguiente(posicion) {
-        if (posicion.x() == 0){
+        if (posicion.x() == 1){
             return posicion
         }
         else {
@@ -64,11 +67,11 @@ object movimientoDeLaCaja{
             movimiento.mover(caja, haciaLaIzquierda)
         }
 
-         if (caja.position().x() == config.anchoMaximo() - 1) {
+         if (caja.position().x() == config.anchoMaximo() - 2) {
             moverseALaDerecha = false
         }
 
-        if (caja.position().x() == 0) {
+        if (caja.position().x() == 1) {
             moverseALaDerecha = true
         }
     }

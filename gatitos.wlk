@@ -1,5 +1,5 @@
 object gatito{
-    var property position = game.origin()
+    var property position = game.at(7,1)
     var property vidas = 3
     var energia = 100//rango de 0 a 100
     var felicidad = 0//rango de 0 a 10
@@ -34,7 +34,7 @@ object gatito{
     if(vidas <= 0) {
       self.terminarJuego("¡Te quedaste sin vidas! Game Over.")
     } else {
-      self.position(game.origin()) // Vuelve al inicio si aún tiene vidas
+      self.position(game.at(7,1)) // Vuelve al inicio si aún tiene vidas
       game.say(self, "¡Auch! Me quedan " + vidas.toString() + " vidas")
       //Mensaje temporal hasta que pongamos una interfaz visual para mostrar las vidas restantes
     }

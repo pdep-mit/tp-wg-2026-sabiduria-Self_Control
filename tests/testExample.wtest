@@ -2,6 +2,10 @@ import gatitos.*
 import obstaculos.*
 import movimientos.*
 describe "Estado inicial del gatito, y limites de energia y felicidad"{
+  test "posicion inicial del gatito"{
+    assert.equals(game.at(7,1), gatito.position())
+  }
+  
   test "el gatito arranca con energia 100 y felicidad 0" {
     assert.equals(100, gatito.energia())
     assert.equals(0, gatito.felicidad())
@@ -18,30 +22,30 @@ describe "Estado inicial del gatito, y limites de energia y felicidad"{
 describe "Limites del mapa"{  
   test "El gatito no puede salirse del mapa por arriba" {
     //Parado en el limite superior
-    gatito.position(game.at(5, 14)) 
+    gatito.position(game.at(5, 11)) 
     movimiento.mover(gatito, haciaArriba)
-    assert.equals(game.at(5, 14), gatito.position()) //Comparamos si se mantuvo en la misma posicion
+    assert.equals(game.at(5, 11), gatito.position()) //Comparamos si se mantuvo en la misma posicion
   }
 
   test "El gatito no puede salirse del mapa por abajo" {
     //Parado en el limite inferior
-    gatito.position(game.at(5, 0)) 
+    gatito.position(game.at(5, 1)) 
     movimiento.mover(gatito, haciaAbajo)
-    assert.equals(game.at(5, 0), gatito.position()) //Comparamos si se mantuvo en la misma posicion
+    assert.equals(game.at(5, 1), gatito.position()) //Comparamos si se mantuvo en la misma posicion
   }
 
   test "El gatito no puede salirse del mapa por la izquierda" {
     //Parado en el limite izquierdo
-    gatito.position(game.at(0, 5))
+    gatito.position(game.at(1, 5))
     movimiento.mover(gatito, haciaLaIzquierda)
-    assert.equals(game.at(0, 5), gatito.position())
+    assert.equals(game.at(1, 5), gatito.position())
   }
 
   test "El gatito no puede salirse del mapa por la derecha" {
     //Parado en el limite derecho
-    gatito.position(game.at(14, 5))
+    gatito.position(game.at(13, 5))
     movimiento.mover(gatito, haciaLaDerecha)
-    assert.equals(game.at(14, 5), gatito.position())
+    assert.equals(game.at(13, 5), gatito.position())
   }
 
 }

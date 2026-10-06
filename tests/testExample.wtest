@@ -50,13 +50,18 @@ describe "Limites del mapa"{
 
 }
 
-describe "Interacciones del gatito"{
+describe "Interacciones del gatito"{//gatito por defecto energia 100 y felicidad 0
   test "Al interactuar con el ovillo se sube la felicidad y baja la energia"{
-    gatito.calcularEnergia(-50) //Baja 50 de energia (queda en 50)
-    gatito.calcularFelicidad(0) //La felicidad arranca en 0
+    gatito.calcularEnergia(-50) //Baja 50 de energia (queda en 50) y felicidad por defecto en 0
     ovillo.interactuarCon(gatito)//Baja 25 de energia (queda en 25), suma 2 de felicidad (queda en 2)
     assert.equals(25, gatito.energia())
     assert.equals(2, gatito.felicidad())
+  }
+
+  test "al interactual con patio de juego, juega dos veces"{
+    patioDeJuego.interactuarCon(gatito)//gatito juega dos veces(-25 de energia y +2 de felciadd por juego) 
+    assert.equals(50, gatito.energia())
+    assert.equals(4, gatito.felicidad())
   }
 
   test "Comer aumenta la energia y la felicidad" {

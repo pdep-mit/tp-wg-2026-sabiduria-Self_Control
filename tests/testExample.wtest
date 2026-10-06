@@ -1,23 +1,81 @@
-// Archivo de tests de referencia, borrar luego de desarrollar propios
 import gatitos.*
-describe "Estado inicial del gatito"{
-  test "arranca con energia 100 y felicidad 0" {
+import obstaculos.*
+import movimientos.*
+describe "Estado inicial del gatito, y limites de energia y felicidad"{
+  test "el gatito arranca con energia 100 y felicidad 0" {
     assert.equals(100, gatito.energia())
     assert.equals(0, gatito.felicidad())
   }
 
-  test "jugar sube felicidad y baja energia"{
-    gatito.calcularEnergia(-85)
-    gatito.jugar()
+  test"La energia siempre esta entre 0 y 100"{
+    gatito.calcularEnergia(-150)
     assert.equals(0, gatito.energia())
+    gatito.calcularEnergia(200)
+    assert.equals(100, gatito.energia())
+  }
+}
+
+describe "Limites del mapa"{  
+  test "El gatito no puede salirse del mapa por arriba" {
+    //Parado en el limite superior
+    gatito.position(game.at(5, 14)) 
+    movimiento.mover(gatito, haciaArriba)
+    assert.equals(game.at(5, 14), gatito.position()) //Comparamos si se mantuvo en la misma posicion
+  }
+
+  test "El gatito no puede salirse del mapa por abajo" {
+    //Parado en el limite inferior
+    gatito.position(game.at(5, 0)) 
+    movimiento.mover(gatito, haciaAbajo)
+    assert.equals(game.at(5, 0), gatito.position()) //Comparamos si se mantuvo en la misma posicion
+  }
+
+  test "El gatito no puede salirse del mapa por la izquierda" {
+    //Parado en el limite izquierdo
+    gatito.position(game.at(0, 5))
+    movimiento.mover(gatito, haciaLaIzquierda)
+    assert.equals(game.at(0, 5), gatito.position())
+  }
+
+  test "El gatito no puede salirse del mapa por la derecha" {
+    //Parado en el limite derecho
+    gatito.position(game.at(14, 5))
+    movimiento.mover(gatito, haciaLaDerecha)
+    assert.equals(game.at(14, 5), gatito.position())
+  }
+
+}
+
+describe "Interacciones del gatito"{
+  test "Al interactuar con el ovillo se sube la felicidad y baja la energia"{
+    gatito.calcularEnergia(-50) //Baja 50 de energia (queda en 50)
+    gatito.calcularFelicidad(0) //La felicidad arranca en 0
+    ovillo.interactuarCon(gatito)//Baja 25 de energia (queda en 25), suma 2 de felicidad (queda en 2)
+    assert.equals(25, gatito.energia())
     assert.equals(2, gatito.felicidad())
   }
 
-  test "si pierde el gatito pierde una vida"{
-        gatito.vidas(7)
-        gatito.perderVida()
+  test "Comer aumenta la energia y la felicidad" {
+    gatito.jugar() //Baja 25 de energía (queda en 75), suma 2 de felicidad
+    gatito.jugar() //Baja otros 25 (queda en 50), suma 2 más (felicidad 4)
+    gatito.comer() //Suma 30 de energía y 3 de felicidad
+    assert.equals(80, gatito.energia())
+    assert.equals(7, gatito.felicidad())
+  }
 
-        assert.equals(6, gatito.vidas())
-    }
+  test "Al interactuar con el perro pierde una vida" {
+    //El gatito arranca con 3 vidas por defecto
+    perro.interactuarCon(gatito)
+    assert.equals(2, gatito.vidas())
+  }
+
+  test "Si el gatito choca con el perro la cantidad de sus vidas, queda en 0 (Derrota)" {
+    gatito.vidas(3) // Aseguramos que arranque con 3 vidas
+    
+    // Repite la colisión 3 veces
+    3.times({ i => perro.interactuarCon(gatito) })
+    
+    assert.equals(0, gatito.vidas())
+}
 
 }

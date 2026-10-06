@@ -1,6 +1,5 @@
 import movimientos.*
 
-
 /*object caja {
     var property position = game.at(3,4)
     
@@ -18,7 +17,7 @@ object perro {
 }
 
 object ovillo {
-    var property position = game.at(2,2)
+    var property position = game.at(2,2) 
 
     method image() = "ovillo.png"
 

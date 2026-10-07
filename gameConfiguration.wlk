@@ -43,10 +43,22 @@ object config{
     }
 
     method configurarAcciones(){
-        keyboard.up().onPressDo({ movimiento.mover(gatito, haciaArriba) })
-		keyboard.down().onPressDo({ movimiento.mover(gatito, haciaAbajo) })
-		keyboard.left().onPressDo({ movimiento.mover(gatito, haciaLaIzquierda) })
-		keyboard.right().onPressDo({ movimiento.mover(gatito, haciaLaDerecha) })
+        keyboard.up().onPressDo({ 
+			gatito.mirarHacia("arriba")
+			movimiento.mover(gatito, haciaArriba) 
+		})
+		keyboard.down().onPressDo({ 
+			gatito.mirarHacia("abajo")
+			movimiento.mover(gatito, haciaAbajo) 
+		})
+		keyboard.left().onPressDo({ 
+			gatito.mirarHacia("izquierda")
+			movimiento.mover(gatito, haciaLaIzquierda) 
+		})
+		keyboard.right().onPressDo({ 
+			gatito.mirarHacia("derecha")
+			movimiento.mover(gatito, haciaLaDerecha) 
+		})
     }
 
     /*method iniciarMovimientoCaja() {//hacer algo repetidamente cada cierto tiempo

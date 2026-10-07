@@ -6,10 +6,17 @@ object gatito{
     var estaJugando = false
     var jugueteActual = ""
     var tieneLlave = false
+    var orientacion = "frente"
 
   method estaJugando() = estaJugando
   method tieneLlave() = tieneLlave
   method agarrarLlave() {tieneLlave = true}
+
+  method mirarHacia(nuevaOrientacion) {
+    orientacion = nuevaOrientacion
+    //game.schedule(2000, { orientacion = "frente" }) 
+    //pensado para que mire al frente cuando este reposando pero se buggea porque si se mueve rapido se superponen las imagenes y se ve raro al ir a la izquierda
+  }
 
 	method image() {
     if (vidas <= 0) {
@@ -17,9 +24,9 @@ object gatito{
     } else if (estaJugando) {
         return "jugandocon" + jugueteActual + ".png" 
     } else if (felicidad >= 8) { 
-        return "gatitoFeliz.png"
+        return "gatitofeliz" + orientacion + ".png"
     } else {
-        return "gatito.png" 
+        return "gatito" + orientacion + ".png"
     }
   }
 
@@ -61,6 +68,7 @@ object gatito{
       self.terminarJuego("¡Te quedaste sin vidas! Game Over.")
     } else {
       self.position(game.at(7,1)) // Vuelve al inicio si aún tiene vidas
+      self.mirarHacia("frente")
       game.say(self, "¡Auch! Me quedan " + vidas.toString() + " vidas")
       //Mensaje temporal hasta que pongamos una interfaz visual para mostrar las vidas restantes
     }

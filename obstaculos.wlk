@@ -89,45 +89,16 @@ object puerta {
     method image() = "puerta.png"
 
     method interactuarCon(unGatito) {
-        unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
-       //game.removeVisual(unGatito) //el gatito pasa al siguiente nivel 
+        unGatito.ganarJuego("Ganaste! el siguiente nivel te espera") 
     }
 }
 
-object parteDosDerechaPuerta {
-   
-    var property position = game.at(6, 11)
-   
-   
+class HitboxPuerta {
+    var property position 
 
-
-    
     method image() = "imagenInvisible.png"
 
     method interactuarCon(unGatito) {
-        unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
+        puerta.interactuarCon(unGatito) 
     }
 }
-
-object parteTresDerechaPuerta {
-    
-    var property position = game.at(7, 11)
-    
-    method image() = "imagenInvisible.png"
-
-    method interactuarCon(unGatito) {
-        unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
-        }
-}
- 
- object parteCuatroDerechaPuerta {
-    
-    var property position = game.at(8, 11)
-    
-    method image() = "imagenInvisible.png"
-
-    method interactuarCon(unGatito) {
-        unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
-    }
-}   
-

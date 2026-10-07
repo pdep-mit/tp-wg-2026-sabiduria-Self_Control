@@ -34,10 +34,10 @@ object config{
 		/*game.addVisual(caja)*/
 		game.addVisual(perro)
 		game.addVisual(parteTraseraPerro)
-		game.addVisual(gatito)
-		game.addVisual(parteDosDerechaPuerta)	
-		game.addVisual(parteTresDerechaPuerta)	
-		game.addVisual(parteCuatroDerechaPuerta)	
+		game.addVisual(gatito)	
+		game.addVisual(new HitboxPuerta(position = game.at(6, 11)))
+        game.addVisual(new HitboxPuerta(position = game.at(7, 11)))
+        game.addVisual(new HitboxPuerta(position = game.at(8, 11)))
     }
 
     method configurarAcciones(){

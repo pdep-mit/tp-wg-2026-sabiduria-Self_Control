@@ -5,8 +5,11 @@ object gatito{
     var felicidad = 0//rango de 0 a 10
     var estaJugando = false
     var jugueteActual = ""
+    var tieneLlave = false
 
   method estaJugando() = estaJugando
+  method tieneLlave() = tieneLlave
+  method agarrarLlave() {tieneLlave = true}
 
 	method image() {
     if (vidas <= 0) {

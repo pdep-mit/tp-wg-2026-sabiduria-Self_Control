@@ -53,7 +53,8 @@ describe "Limites del mapa"{
 describe "Interacciones del gatito"{//gatito por defecto energia 100 y felicidad 0
   test "Al interactuar con el ovillo se sube la felicidad y baja la energia"{
     gatito.calcularEnergia(-50) //Baja 50 de energia (queda en 50) y felicidad por defecto en 0
-    ovillo.interactuarCon(gatito)//Baja 25 de energia (queda en 25), suma 2 de felicidad (queda en 2)
+    const ovilloDePrueba = new Ovillo(position = game.at(0, 0))
+    ovilloDePrueba.interactuarCon(gatito)//Baja 25 de energia (queda en 25), suma 2 de felicidad (queda en 2)
     assert.equals(25, gatito.energia())
     assert.equals(2, gatito.felicidad())
   }

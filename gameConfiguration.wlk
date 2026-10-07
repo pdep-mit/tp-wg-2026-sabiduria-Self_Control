@@ -29,11 +29,13 @@ object config{
     method agregarComponentesVisuales(){
 		game.addVisual(puerta)
 		game.addVisual(patioDeJuego)
-		game.addVisual(ovillo)
-		game.addVisual(platoDeComida)
+		game.addVisual(new Ovillo(position = game.at(2, 2)))
+		game.addVisual(new Ovillo(position = game.at(12, 2)))
+		game.addVisual(new PlatoDeComida(position = game.at(10, 4)))
 		/*game.addVisual(caja)*/
 		game.addVisual(perro)
 		game.addVisual(parteTraseraPerro)
+		game.addVisual(new Llave(position = game.at(5, 6)))
 		game.addVisual(gatito)	
 		game.addVisual(new HitboxPuerta(position = game.at(6, 11)))
         game.addVisual(new HitboxPuerta(position = game.at(7, 11)))

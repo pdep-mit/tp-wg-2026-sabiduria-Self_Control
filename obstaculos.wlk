@@ -36,8 +36,8 @@ object parteTraseraPerro {
 }
 
 
-object ovillo {
-    var property position = game.at(2,2) 
+class Ovillo {
+    var property position 
     var estaDeshecho = false
 
     method image() {
@@ -56,8 +56,8 @@ object ovillo {
     }
 }
 
-object platoDeComida {
-    var property position = game.at(10,4)
+class PlatoDeComida {
+    var property position //game.at(10,4)
     var estaVacio = false
 
     method image() {
@@ -83,13 +83,28 @@ object patioDeJuego {
     }
 }
 
+class Llave {
+    var property position = game.at(1, 1)
+
+    method image() = "llave.png"
+
+    method interactuarCon(unGatito) {
+        unGatito.agarrarLlave() 
+        game.removeVisual(self)        
+    }
+}
+
 object puerta {
     var property position = game.at(5, 11)
 
     method image() = "puerta.png"
 
     method interactuarCon(unGatito) {
-        unGatito.ganarJuego("Ganaste! el siguiente nivel te espera") 
+        if (unGatito.tieneLlave()) {
+            unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
+        } else {
+            game.say(unGatito, "¡Está cerrada! Necesito encontrar la llave.")
+        }
     }
 }
 

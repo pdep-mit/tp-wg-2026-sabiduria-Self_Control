@@ -65,8 +65,8 @@ describe "Interacciones del gatito"{//gatito por defecto energia 100 y felicidad
   }
 
   test "Comer aumenta la energia y la felicidad" {
-    gatito.jugar() //Baja 25 de energía (queda en 75), suma 2 de felicidad
-    gatito.jugar() //Baja otros 25 (queda en 50), suma 2 más (felicidad 4)
+    gatito.jugar("ovillo") //Baja 25 de energía (queda en 75), suma 2 de felicidad
+    gatito.jugar("patio") //Baja otros 25 (queda en 50), suma 2 más (felicidad 4)
     gatito.comer() //Suma 30 de energía y 3 de felicidad
     assert.equals(80, gatito.energia())
     assert.equals(7, gatito.felicidad())

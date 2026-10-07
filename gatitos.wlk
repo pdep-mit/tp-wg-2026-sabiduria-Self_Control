@@ -4,12 +4,13 @@ object gatito{
     var energia = 100//rango de 0 a 100
     var felicidad = 0//rango de 0 a 10
     var estaJugando = false
+    var jugueteActual = ""
 
 	method image() {
     if (vidas <= 0) {
         return "gatitoDerrotado.png"
     } else if (estaJugando) {
-        return "gatitoJugando.png" 
+        return "jugandocon" + jugueteActual + ".png" 
     } else if (felicidad >= 8) { 
         return "gatitoFeliz.png"
     } else {
@@ -20,18 +21,24 @@ object gatito{
   method energia() {
     return energia
   }
+
   method calcularEnergia(variable) {
     energia = (energia+variable).max(0).min(100)
   }
+
   method felicidad() {
     return felicidad
   }
+
   method calcularFelicidad(variable) {
     felicidad = (felicidad+variable).max(0).min(10)
   }
-  method jugar(){
+
+  method jugar(unJuguete){
     self.calcularEnergia(-25)
     self.calcularFelicidad(+2)
+
+    jugueteActual = unJuguete
     estaJugando = true
     game.schedule(1000, { estaJugando = false })
   } 

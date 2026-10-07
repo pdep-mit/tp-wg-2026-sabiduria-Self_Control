@@ -50,7 +50,7 @@ object ovillo {
 
     method interactuarCon(unGatito) {
         if(!estaDeshecho) {
-            unGatito.jugar()
+            unGatito.jugar("ovillo")
             estaDeshecho = true
         }
     }
@@ -78,8 +78,8 @@ object patioDeJuego {
 
     method image() = "patioDeJuego.png"
     method interactuarCon(unGatito){
-        unGatito.jugar()
-        unGatito.jugar()
+        unGatito.jugar("patio")
+        unGatito.jugar("patio")
     }
 }
 
@@ -89,7 +89,7 @@ object puerta {
     method image() = "puerta.png"
 
     method interactuarCon(unGatito) {
-        unGatito.ganarJuego("GANO! EL SIGUIENTE NIVEL LO ESPERA")
+        unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
        //game.removeVisual(unGatito) //el gatito pasa al siguiente nivel 
     }
 }

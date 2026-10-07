@@ -27,14 +27,15 @@ object config{
 	}
 
     method agregarComponentesVisuales(){
+		game.addVisual(puerta)
+		game.addVisual(patioDeJuego)
 		game.addVisual(ovillo)
-        game.addVisual(gatito)
+		game.addVisual(platoDeComida)
 		/*game.addVisual(caja)*/
 		game.addVisual(perro)
 		game.addVisual(parteTraseraPerro)
-		game.addVisual(patioDeJuego)
-		game.addVisual(platoDeComida)
-		game.addVisual(puerta)
+		game.addVisual(gatito)
+		
     }
 
     method configurarAcciones(){

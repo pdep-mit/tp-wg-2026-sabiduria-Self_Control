@@ -6,6 +6,8 @@ object gatito{
     var estaJugando = false
     var jugueteActual = ""
 
+  method estaJugando() = estaJugando
+
 	method image() {
     if (vidas <= 0) {
         return "gatitoDerrotado.png"

@@ -1,9 +1,12 @@
 import gameConfiguration.*
+import gatitos.*
 
 object movimiento {
 	method mover(personajeLibre, direccion){
-		const nuevaPosicion = direccion.posicionSiguiente(personajeLibre.position())
-		personajeLibre.position(nuevaPosicion)
+        if(not personajeLibre.estaJugando()){
+            const nuevaPosicion = direccion.posicionSiguiente(personajeLibre.position())
+            personajeLibre.position(nuevaPosicion)
+        }
 	}
 }
 

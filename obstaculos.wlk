@@ -93,4 +93,3 @@ object puerta {
        //game.removeVisual(unGatito) //el gatito pasa al siguiente nivel 
     }
 }
-

@@ -68,8 +68,10 @@ class PlatoDeComida {
         }
     }
     method interactuarCon(unGatito) {
-        unGatito.comer()
-        estaVacio = true
+        if(!estaVacio) {
+            unGatito.comer()
+            estaVacio = true
+        }
     }
 }
 

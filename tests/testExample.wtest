@@ -5,6 +5,10 @@ describe "Estado inicial del gatito, y limites de energia y felicidad"{
   test "posicion inicial del gatito"{
     assert.equals(game.at(7,1), gatito.position())
   }
+
+  test "El gatito arranca sin la llave" {
+    assert.notThat(gatito.tieneLlave()) 
+  }
   
   test "el gatito arranca con energia 100 y felicidad 0" {
     assert.equals(100, gatito.energia())
@@ -16,6 +20,13 @@ describe "Estado inicial del gatito, y limites de energia y felicidad"{
     assert.equals(0, gatito.energia())
     gatito.calcularEnergia(200)
     assert.equals(100, gatito.energia())
+  }
+
+  test "La felicidad siempre esta entre 0 y 10"{
+    gatito.calcularFelicidad(-15)
+    assert.equals(0, gatito.felicidad())
+    gatito.calcularFelicidad(20)
+    assert.equals(10, gatito.felicidad())
   }
 }
 
@@ -59,7 +70,16 @@ describe "Interacciones del gatito"{//gatito por defecto energia 100 y felicidad
     assert.equals(2, gatito.felicidad())
   }
 
-  test "al interactual con patio de juego, juega dos veces"{
+  test "Al interactuar con el plato de comida, sube la energia y felicidad del gatito" {
+    // Preparación
+    gatito.calcularEnergia(-50) 
+    const unPlato = new PlatoDeComida(position = game.at(0,0))
+    unPlato.interactuarCon(gatito)
+    assert.equals(80, gatito.energia()) // 50 + 30 del plato
+    assert.equals(3, gatito.felicidad())
+  }
+
+  test "Al interactuar con patio de juego, juega dos veces"{
     patioDeJuego.interactuarCon(gatito)//gatito juega dos veces(-25 de energia y +2 de felciadd por juego) 
     assert.equals(50, gatito.energia())
     assert.equals(4, gatito.felicidad())
@@ -73,10 +93,11 @@ describe "Interacciones del gatito"{//gatito por defecto energia 100 y felicidad
     assert.equals(7, gatito.felicidad())
   }
 
-  test "Al interactuar con el perro pierde una vida" {
+  test "Al interactuar con el perro pierde una vida y vuelve al inicio" {
     //El gatito arranca con 3 vidas por defecto
     perro.interactuarCon(gatito)
     assert.equals(2, gatito.vidas())
+    assert.equals(game.at(7,1), gatito.position()) 
   }
 
   test "Si el gatito choca con el perro la cantidad de sus vidas, queda en 0 (Derrota)" {
@@ -86,6 +107,23 @@ describe "Interacciones del gatito"{//gatito por defecto energia 100 y felicidad
     3.times({ i => perro.interactuarCon(gatito) })
     
     assert.equals(0, gatito.vidas())
-}
+  }
 
+  test "Al interactuar con la llave, el gatito cambia su estado a tieneLlave" {
+    const llaveDePrueba = new Llave(position = game.at(1,1))
+    llaveDePrueba.interactuarCon(gatito)
+    assert.that(gatito.tieneLlave()) 
+  }
+
+  test "Si choca con la puerta SIN tener la llave, el gatito no gana el juego" {
+    assert.notThat(gatito.tieneLlave()) 
+    puerta.interactuarCon(gatito)
+    assert.equals(3, gatito.vidas())
+  }
+
+  test "Si choca con una Hitbox de la puerta SIN llave, no pasa nada" {
+    const hitbox = new HitboxPuerta(position = game.at(6, 11))
+    hitbox.interactuarCon(gatito)
+    assert.notThat(gatito.tieneLlave())
+  }
 }

@@ -35,7 +35,9 @@ object config{
 		game.addVisual(perro)
 		game.addVisual(parteTraseraPerro)
 		game.addVisual(gatito)
-		
+		game.addVisual(parteDosDerechaPuerta)	
+		game.addVisual(parteTresDerechaPuerta)	
+		game.addVisual(parteCuatroDerechaPuerta)	
     }
 
     method configurarAcciones(){

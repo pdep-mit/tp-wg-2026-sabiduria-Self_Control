@@ -48,3 +48,10 @@ object puerta{
     var property position = game.at(6,0)
     method image() ="puerta.png"
 }
+
+object dueña{
+    var property position = game.at(13,2)
+    method image (){
+        return "dueña.png"
+    }
+}

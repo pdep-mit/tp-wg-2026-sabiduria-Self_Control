@@ -18,6 +18,7 @@ object gatito{
     //pensado para que mire al frente cuando este reposando pero se buggea porque si se mueve rapido se superponen las imagenes y se ve raro al ir a la izquierda
   }
 
+//Herencia
 	method image() {
     if (vidas <= 0) {
         return "gatitoDerrotado.png"
@@ -81,6 +82,7 @@ object gatito{
   }
 
   method ganarJuego(mensaje){
+    
     game.say(self, mensaje)
   }
 

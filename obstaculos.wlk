@@ -1,4 +1,5 @@
 import movimientos.*
+import effectosDeSonido.*
 
 /*object caja {
     var property position = game.at(3,4)
@@ -52,6 +53,9 @@ class Ovillo {
         if(!estaDeshecho) {
             unGatito.jugar("ovillo")
             estaDeshecho = true
+             if(unGatito.felicidad()>=8){
+                brillo.sonar()
+            }
         }
     }
 }
@@ -71,6 +75,9 @@ class PlatoDeComida {
         if(!estaVacio) {
             unGatito.comer()
             estaVacio = true
+            if(unGatito.felicidad()>=8){
+                brillo.sonar()
+            }
         }
     }
 }
@@ -82,6 +89,9 @@ object patioDeJuego {
     method interactuarCon(unGatito){
         unGatito.jugar("patio")
         unGatito.jugar("patio")
+         if(unGatito.felicidad()>=8){ //puede terminarse en consulta como método
+                brillo.sonar()
+            }
     }
 }
 
@@ -104,8 +114,10 @@ object puerta {
     method interactuarCon(unGatito) {
         if (unGatito.tieneLlave()) {
             unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
+           game.removeVisual(perro)
         } else {
             game.say(unGatito, "¡Está cerrada! Necesito encontrar la llave.")
+            puertaBloqueada.sonar()
         }
     }
 }

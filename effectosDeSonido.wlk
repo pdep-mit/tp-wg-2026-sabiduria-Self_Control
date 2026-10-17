@@ -14,3 +14,7 @@ object brillo {
 object puertaBloqueada {
     method sonar () = game.sound("puertaBloqueada.mp3").play()
 }
+
+object gruñidoDePerro{
+    method sonar()= game.sound("gruñidoDePerro.mp3").play() 
+}

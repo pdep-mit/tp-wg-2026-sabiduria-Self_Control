@@ -22,7 +22,11 @@ object perro {
     method interactuarCon(unGatito) {
         estaDormido = false
         unGatito.perderVida()
-        game.schedule(2000, { estaDormido = true }) // El perro se vuelve a dormir después de 2 segundos
+        gruñidoDePerro.sonar()
+        game.schedule(2000, { 
+            estaDormido = true 
+            
+            }) // El perro se vuelve a dormir después de 2 segundos
     }
 }
 
@@ -81,7 +85,6 @@ class PlatoDeComida {
         }
     }
 }
-
 object patioDeJuego {
     var property position = game.at(13,10)
 

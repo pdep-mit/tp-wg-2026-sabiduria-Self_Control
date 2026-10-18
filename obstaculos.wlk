@@ -7,30 +7,72 @@ import effectosDeSonido.*
     method image() = "caja.png"
 }*/
 
-object perro {
-    var property position = game.at(6,6)
-    var estaDormido = true
+class Enemigo{
+    var property position 
+    var property orientacion = ""
+    
+    method mirarHacia(nuevaOrientacion){
+        orientacion = nuevaOrientacion
+    }
 
+    method estaJugando() = false
+
+    method interactuarCon(unGatito){
+        unGatito.perderVida()
+    }
+
+    method despertar(){}
+}
+
+class Perro inherits Enemigo  {
+    var estaDormido = true
+    
     method image() {
         if(estaDormido) {
             return "perroDormido.png"
-        } else {
-            return "perroDespierto.png"
-        }
+        } else  {
+            return "perro" + orientacion + ".png"
+            //return "perroDespierto.png" 
+            }
+            
     }
 
-    method interactuarCon(unGatito) {
+    override method interactuarCon(unGatito) {
+        super (unGatito)
+
         estaDormido = false
-        unGatito.perderVida()
         gruñidoDePerro.sonar()
-        game.schedule(2000, { 
+        /*game.schedule(2000, { 
             estaDormido = true 
             
-            }) // El perro se vuelve a dormir después de 2 segundos
+            })*/ // El perro se vuelve a dormir después de 2 segundos
     }
+ 
+    override method despertar(){
+        estaDormido = false 
+    }
+    
 }
 
-object parteTraseraPerro {
+const perro = new Perro ( position = game.at(6,7))
+
+class Dueña inherits Enemigo{
+   
+    method image(){
+        return "dueña" + orientacion + ".png"
+    }
+    override method interactuarCon(unGatito){
+        super (unGatito)
+
+        unGatito.calcularEnergia(-10)
+    }
+   
+}
+
+const dueña = new Dueña (position= game.at(9,8))
+
+
+/*object parteTraseraPerro {
     var property position = game.at(7, 6) //a la derecha del perro 
 
     method image() = "imagenInvisible.png"
@@ -38,7 +80,7 @@ object parteTraseraPerro {
     method interactuarCon(unGatito) {
         perro.interactuarCon(unGatito)
     }
-}
+}*/
 
 
 class Ovillo {

@@ -15,6 +15,7 @@ object config{
 		self.agregarComponentesVisuales()
 		self.configurarAcciones()
 		self.configurarColisiones()
+		self.atrapar()
 		//self.iniciarMovimientoCaja()
 		
 	}
@@ -33,8 +34,9 @@ object config{
 		game.addVisual(new Ovillo(position = game.at(12, 2)))
 		game.addVisual(new PlatoDeComida(position = game.at(10, 4)))
 		/*game.addVisual(caja)*/
+		/*game.aadVisual(dueña)*/
 		game.addVisual(perro)
-		game.addVisual(parteTraseraPerro)
+		/*game.addVisual(parteTraseraPerro)*/
 		game.addVisual(new Llave(position = game.at(5, 6)))
 		game.addVisual(gatito)	
 		game.addVisual(new HitboxPuerta(position = game.at(6, 11)))
@@ -70,6 +72,16 @@ object config{
     //    movimientoDeLaCaja.moverse(caja)
     //})
 	}*/
+
+
+    //perseguir.seguir(dueña, gatito)
+	method atrapar(){
+		game.schedule(2000, {game.onTick(300, "perseguir", {
+			perseguir.seguir(perro, gatito)
+		})
+		})
+	}
+
 
 	method configurarColisiones(){
 		game.onCollideDo(gatito, { elemento => elemento.interactuarCon(gatito) })  

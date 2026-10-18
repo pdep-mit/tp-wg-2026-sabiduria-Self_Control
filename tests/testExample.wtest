@@ -93,7 +93,7 @@ describe "Interacciones del gatito"{//gatito por defecto energia 100 y felicidad
     assert.equals(7, gatito.felicidad())
   }
 
-  test "energia en 0 resta una vida y repone energia" {
+  test "energia en 0 resta una vida" {
   gatito.calcularEnergia(-100)
   assert.equals(2, gatito.vidas())
 }
@@ -143,4 +143,30 @@ test "con inmunidad no se pierde vida" {
     hitbox.interactuarCon(gatito)
     assert.notThat(gatito.tieneLlave())
   }
+}
+
+describe "Persecucion y orientacion del perro"{
+  test "el perro de mueve hacia arriba si esta abajo del gato"{
+        gatito.position(game.at(7,7))
+        const perroNuevo = new Perro (position = game.at(7,5))
+
+        perseguir.seguir(perroNuevo, gatito)
+
+        assert.equals(game.at(7,6), perroNuevo.position())
+    }
+  test "el perro se mueve hacia la derecha"{
+    gatito.position(game.at(7,7))
+        const perroNuevo = new Perro (position = game.at(5,7))
+
+        perseguir.seguir(perroNuevo, gatito)
+
+        assert.equals(game.at(6,7), perroNuevo.position())
+  }
+
+  test "el perro pude cambiar su orientacion"{
+        const perroNuevo = new Perro (position = game.at(7,5)) 
+
+      perroNuevo.mirarHacia("derecha")
+      assert.equals("derecha", perroNuevo.orientacion())
+    }
 }

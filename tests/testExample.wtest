@@ -93,6 +93,23 @@ describe "Interacciones del gatito"{//gatito por defecto energia 100 y felicidad
     assert.equals(7, gatito.felicidad())
   }
 
+  test "energia en 0 resta una vida y repone energia" {
+  gatito.calcularEnergia(-100)
+  assert.equals(2, gatito.vidas())
+}
+
+ test "felicidad al llegar a 10 vuelve al gatito inmune" {
+  gatito.calcularFelicidad(10)
+  assert.that(gatito.inmune())
+}
+
+test "con inmunidad no se pierde vida" {
+  gatito.calcularFelicidad(10)
+  gatito.perderVida()
+  assert.equals(3, gatito.vidas())
+}
+
+
   test "Al interactuar con el perro pierde una vida y vuelve al inicio" {
     //El gatito arranca con 3 vidas por defecto
     perro.interactuarCon(gatito)

@@ -61,6 +61,10 @@ object config{
 		})
     }
 
+	method bajarFelicidad() {
+		game.onTick(5000, "bajarFelicidad", { gatito.calcularFelicidad(-1)}) // cada 5 segundos cae uno de felicidad
+	}
+
     /*method iniciarMovimientoCaja() {//hacer algo repetidamente cada cierto tiempo
     //game.onTick(500, "moverCaja", {
     //    movimientoDeLaCaja.moverse(caja)

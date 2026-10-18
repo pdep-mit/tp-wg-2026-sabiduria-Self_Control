@@ -1,6 +1,7 @@
 object gatito{
     var property position = game.at(7,1)
     var property vidas = 3
+    var property inmune = false
     var energia = 100//rango de 0 a 100
     var felicidad = 0//rango de 0 a 10
     var estaJugando = false
@@ -37,6 +38,9 @@ object gatito{
 
   method calcularEnergia(variable) {
     energia = (energia+variable).max(0).min(100)
+    if (energia == 0){
+      self.perderVida()
+    }
   }
 
   method felicidad() {
@@ -45,6 +49,9 @@ object gatito{
 
   method calcularFelicidad(variable) {
     felicidad = (felicidad+variable).max(0).min(10)
+    if(felicidad == 10){
+      self.activarInmunidad()
+    }
   }
 
   method jugar(unJuguete){
@@ -61,10 +68,16 @@ object gatito{
     self.calcularFelicidad(3)
   }
 
+  method activarInmunidad() {
+  inmune = true                       
+  game.schedule(5000, { inmune = false })   // 5 segundos de inmunidad
+}
+
   method perderVida(){
+   if (!inmune || energia == 0){ 
     vidas = vidas - 1
     felicidad = 0
-  
+    energia = 100
     if(vidas <= 0) {
       self.terminarJuego("¡Te quedaste sin vidas! Game Over.")
     } else {
@@ -73,6 +86,7 @@ object gatito{
       game.say(self, "¡Auch! Me quedan " + vidas.toString() + " vidas")
       //Mensaje temporal hasta que pongamos una interfaz visual para mostrar las vidas restantes
     }
+   }
   }
 
   method terminarJuego(mensaje) {

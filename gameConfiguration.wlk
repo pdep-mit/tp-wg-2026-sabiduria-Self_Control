@@ -84,7 +84,7 @@ object nivelDos{
 
 	method configurarVentana(){		
 		game.title("CatSurvivor - Nivel Dos")
-		game.boardGround("escenarioDosssss.jpg")
+		game.boardGround("escenarioDos.jpg")
 	}
 
 	method configurarComponentesVisuales(){
@@ -98,22 +98,18 @@ object nivelDos{
 		    keyboard.up().onPressDo({ 
 			gatito.mirarHacia("arriba")
 			movimiento.mover(gatito, haciaArriba)
-			gatito.puedeMoverse(true) 
 		})
 		keyboard.down().onPressDo({ 
 			gatito.mirarHacia("abajo")
 			movimiento.mover(gatito, haciaAbajo) 
-			gatito.puedeMoverse(true)
 		})
 		keyboard.left().onPressDo({ 
 			gatito.mirarHacia("izquierda")
 			movimiento.mover(gatito, haciaLaIzquierda) 
-			gatito.puedeMoverse(true)
 		})
 		keyboard.right().onPressDo({ 
 			gatito.mirarHacia("derecha")
-			movimiento.mover(gatito, haciaLaDerecha) 
-			gatito.puedeMoverse(true)
+			movimiento.mover(gatito, haciaLaDerecha)
 		})
 
 	}

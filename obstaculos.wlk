@@ -1,5 +1,6 @@
 import movimientos.*
 import effectosDeSonido.*
+import gameConfiguration.*
 
 /*object caja {
     var property position = game.at(3,4)
@@ -117,12 +118,26 @@ object puerta {
     method interactuarCon(unGatito) {
         if (unGatito.tieneLlave()) {
             unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
-           game.removeVisual(perro)
+            nivelDos.iniciar()
+           
         } else {
             game.say(unGatito, "¡Está cerrada! Necesito encontrar la llave.")
             puertaBloqueada.sonar()
         }
     }
+}
+
+object charco{
+    method image()= "charco.png"
+    var property position = game.at(6, 6)
+
+    method interactuarCon(unGatito){
+        //bloquear los movimientos
+        unGatito.mojarse()
+        //game.schedule(3000, {unGatito.position(game.at(6,6))})
+    }
+
+    //añadir cambio de estados cuando colisiona con el charco y producir cambiod de imgns a un gato mojado
 }
 
 class HitboxPuerta {

@@ -30,7 +30,7 @@ object gatito{
     } else if (felicidad >= 8) { 
         return "gatitofeliz" + orientacion + ".png"
     } else if(estaMojado){
-       return "gatoCharco.png"
+       return "gatoMojado.png"
     } else {
         return "gatito" + orientacion + ".png"
     }

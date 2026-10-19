@@ -5,6 +5,7 @@ import obstaculos.*
 
 import wollok.game.*
 
+//un tema con el cambio de pantalla, no se refresca el fondo de juego
 object nivelUno{
 	method alturaMaxima () = 15
 	method anchoMaximo () = 15
@@ -17,6 +18,9 @@ object nivelUno{
 	}
 
 	method configurarComponentesVisuales(){
+		game.addVisual(vidaUno)
+		game.addVisual(vidaDos)
+		game.addVisual(vidaTres)
 		game.addVisual(puerta)
 		game.addVisual(patioDeJuego)
 		game.addVisual(new Ovillo(position = game.at(2, 2)))
@@ -68,6 +72,18 @@ object nivelUno{
 		})
 	}
 
+	method mostrarVidas(vidas){
+		if(gatito.vidas()==3){
+			game.addVisual(vidaUno)
+			game.addVisual(vidaDos)
+			game.addVisual(vidaTres)
+		}else if(gatito.vidas()==2){
+			game.addVisual(vidaUno)
+			game.addVisual(vidaDos)
+		}else if(gatito.vidas()==1){
+			game.addVisual(vidaUno)
+		}
+	}
 
 	method iniciar(){
 		self.configurarVentana()
@@ -83,8 +99,9 @@ object nivelDos{
 	method anchoMaximo () = 15
 
 	method configurarVentana(){		
-		game.title("CatSurvivor - Nivel Dos")
+		game.clear()
 		game.boardGround("escenarioDos.jpg")
+		game.title("CatSurvivor - Nivel Dos")
 	}
 
 	method configurarComponentesVisuales(){
@@ -122,7 +139,7 @@ object nivelDos{
 		game.allVisuals().forEach({visual=>game.removeVisual(visual)})
 	}
 	method iniciar(){
-		game.clear()
+		
 		self.limpiezaDeJuego()
 		self.configurarVentana()
 		self.configurarComponentesVisuales()
@@ -157,6 +174,7 @@ object config{
 	}
 
     method agregarComponentesVisuales(){
+		self.mostrarVidas()
 		game.addVisual(puerta)
 		game.addVisual(patioDeJuego)
 		game.addVisual(new Ovillo(position = game.at(2, 2)))
@@ -215,6 +233,22 @@ object config{
 		})
 	}
 
+	method mostrarVidas(){
+		if(gatito.vidas()==3){
+			game.addVisual(vidaUno)
+			game.addVisual(vidaDos)
+			game.addVisual(vidaTres)
+		}else if(gatito.vidas()==2){
+			game.removeVisual(vidaTres)		
+		}else if(gatito.vidas()==1){
+			game.removeVisual(vidaDos)
+			game.removeVisual(vidaTres)
+		}else{
+			game.removeVisual(vidaUno)
+			game.removeVisual(vidaDos)
+			game.removeVisual(vidaTres)
+		}
+	}
 
 	method configurarColisiones(){
 		game.onCollideDo(gatito, { elemento => elemento.interactuarCon(gatito) })  

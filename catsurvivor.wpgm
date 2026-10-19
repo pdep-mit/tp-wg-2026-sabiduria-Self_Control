@@ -3,5 +3,6 @@ import gameConfiguration.*
 
 program JuegoGatitos{
     config.configurarJuego()
+    //nivelUno.iniciar()
     game.start()
 }

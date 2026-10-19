@@ -1,3 +1,4 @@
+import gameConfiguration.*
 import obstaculos.*
 object gatito{
     var property position = game.at(7,1)
@@ -90,7 +91,9 @@ object gatito{
     vidas = vidas - 1
     felicidad = 0
     energia = 100
+    config.mostrarVidas()
     if(vidas <= 0) {
+      config.mostrarVidas()
       self.terminarJuego("¡Te quedaste sin vidas! Game Over.")
     } else {
       self.position(game.at(7,1)) // Vuelve al inicio si aún tiene vidas
@@ -112,4 +115,17 @@ object gatito{
     game.say(self, mensaje)
   }
 
+}
+
+object vidaUno{
+  var property position = game.at(10,0)
+  method image() = "conVida.png"
+}
+object vidaDos{
+  var property position = game.at(11,0)
+  method image() = "conVida.png"
+}
+object vidaTres{
+  var property position = game.at(12,0)
+  method image() = "conVida.png"
 }

@@ -184,3 +184,4 @@ class HitboxPuerta {
         puerta.interactuarCon(unGatito) 
     }
 }
+

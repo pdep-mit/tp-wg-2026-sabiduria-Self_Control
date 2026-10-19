@@ -3,10 +3,13 @@ import gatitos.*
 
 object movimiento {
 	method mover(personajeLibre, direccion){
-        if(not personajeLibre.estaJugando()){
+        if(gatito.puedeMoverse()){
+            if(not personajeLibre.estaJugando()){
             const nuevaPosicion = direccion.posicionSiguiente(personajeLibre.position())
             personajeLibre.position(nuevaPosicion)
+            }
         }
+        
 	}
 }
 

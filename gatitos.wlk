@@ -1,3 +1,4 @@
+import obstaculos.*
 object gatito{
     var property position = game.at(7,1)
     var property vidas = 3
@@ -8,6 +9,8 @@ object gatito{
     var jugueteActual = ""
     var tieneLlave = false
     var orientacion = "frente"
+    var estaMojado=false
+    var property puedeMoverse=false
 
   method estaJugando() = estaJugando
   method tieneLlave() = tieneLlave
@@ -27,7 +30,9 @@ object gatito{
         return "jugandocon" + jugueteActual + ".png" 
     } else if (felicidad >= 8) { 
         return "gatitofeliz" + orientacion + ".png"
-    } else {
+    } else if(estaMojado){
+      return "gatoMojado.png"
+    }else {
         return "gatito" + orientacion + ".png"
     }
   }
@@ -72,6 +77,13 @@ object gatito{
   inmune = true                       
   game.schedule(5000, { inmune = false })   // 5 segundos de inmunidad
 }
+
+  method mojarse(){
+    estaMojado=true
+    puedeMoverse=false
+    game.removeVisual(charco)
+    game.schedule(3000,{estaMojado=false puedeMoverse=true game.addVisual(charco) self.position(game.at(6,8))})  
+  }
 
   method perderVida(){
    if (!inmune || energia == 0){ 

@@ -1,6 +1,6 @@
 import movimientos.*
 import effectosDeSonido.*
-
+import gameConfiguration.*
 /*object caja {
     var property position = game.at(3,4)
     
@@ -159,11 +159,19 @@ object puerta {
     method interactuarCon(unGatito) {
         if (unGatito.tieneLlave()) {
             unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
-           game.removeVisual(perro)
+            nivelDos.iniciar()
         } else {
             game.say(unGatito, "¡Está cerrada! Necesito encontrar la llave.")
             puertaBloqueada.sonar()
         }
+    }
+}
+
+object charco {
+    var property position = game.at(6,6)
+    method image() = "charco.png"
+    method interactuarCon(unGatito) {
+        unGatito.mojarse()
     }
 }
 

@@ -1,4 +1,6 @@
-import obstaculos.*
+import gameConfiguration.*
+//import obstaculos.*
+import visuales.*
 object gatito{
     var property position = game.at(7,1)
     var property vidas = 3
@@ -9,7 +11,7 @@ object gatito{
     var tieneLlave = false
     var orientacion = "frente"
     var estaMojado=false
-    var property puedeMoverse=false
+    var property puedeMoverse=true
 
   method estaJugando() = estaJugando
   method tieneLlave() = tieneLlave
@@ -52,8 +54,7 @@ object gatito{
     estaMojado=true
     puedeMoverse=false
     game.removeVisual(charco)
-    game.schedule(3000,{estaMojado=false puedeMoverse=true game.addVisual(charco) self.position(game
-    .at(6,8))})
+    game.schedule(3000,{estaMojado=false puedeMoverse=true game.addVisual(charco) self.position(game.at(6,8))})
     
   }
 
@@ -78,8 +79,9 @@ object gatito{
   method perderVida(){
     vidas = vidas - 1
     felicidad = 0
-  
+    nivelUno.mostrarVidas()
     if(vidas <= 0) {
+      nivelUno.mostrarVidas()
       self.terminarJuego("¡Te quedaste sin vidas! Game Over.")
     } else {
       self.position(game.at(7,1)) // Vuelve al inicio si aún tiene vidas
@@ -91,7 +93,7 @@ object gatito{
 
   method terminarJuego(mensaje) {
     game.say(self, mensaje)
-    game.schedule(2000, { game.stop() }) 
+    game.schedule(2000, { game.stop()}) 
     //Usamos schedule para dar mas tiempo para leer el mensaje
   }
 
@@ -100,4 +102,17 @@ object gatito{
     game.say(self, mensaje)
   }
 
+}
+
+object vidaUno{
+  var property position = game.at(10,0)
+  method image() = "conVida.png"
+}
+object vidaDos{
+  var property position = game.at(11,0)
+  method image() = "conVida.png"
+}
+object vidaTres{
+  var property position = game.at(12,0)
+  method image() = "conVida.png"
 }

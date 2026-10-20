@@ -2,7 +2,6 @@ import gameConfiguration.*
 import gatitos.*
 
 object movimiento {
-   
 	method mover(personajeLibre, direccion){
          if(gatito.puedeMoverse()){
             if(not personajeLibre.estaJugando()){
@@ -61,6 +60,29 @@ object haciaLaIzquierda {
             return posicion.left(1)
         }
     }
+}
+
+object perseguir{
+    
+    method seguir(alguien, gato){
+        alguien.despertar()
+    if(alguien.position().y() < gato.position().y()){
+        alguien.mirarHacia("arriba")
+        movimiento.mover(alguien, haciaArriba)
+    }
+    else if(alguien.position().y() > gato.position().y()){
+        alguien.mirarHacia("abajo")
+        movimiento.mover(alguien, haciaAbajo)
+    }
+    else if(alguien.position().x() < gato.position().x()){
+        alguien.mirarHacia("derecha")
+        movimiento.mover(alguien, haciaLaDerecha)
+    } 
+    else if(alguien.position().x() > gato.position().x()){
+        alguien.mirarHacia("izquierda")
+        movimiento.mover(alguien, haciaLaIzquierda)
+    }
+}
 }
 
 object movimientoDeLaCaja{

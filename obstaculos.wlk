@@ -8,28 +8,68 @@ import gameConfiguration.*
     method image() = "caja.png"
 }*/
 
-object perro {
-    var property position = game.at(6,6)
-    var estaDormido = true
+class Enemigo{
+    var property position 
+    var property orientacion = ""
+    
+    method mirarHacia(nuevaOrientacion){
+        orientacion = nuevaOrientacion
+    }
 
+    method estaJugando() = false
+
+    method interactuarCon(unGatito){
+        unGatito.perderVida()
+    }
+
+    method despertar(){}
+}
+
+class Perro inherits Enemigo  {
+    var estaDormido = true
+    
     method image() {
         if(estaDormido) {
             return "perroDormido.png"
-        } else {
-            return "perroDespierto.png"
-        }
+        } else  {
+            return "perro" + orientacion + ".png"
+            //return "perroDespierto.png" 
+            }
+            
     }
 
-    method interactuarCon(unGatito) {
+    override method interactuarCon(unGatito) {
+        super (unGatito)
+
         estaDormido = false
-        unGatito.perderVida()
+
         gruñidoDePerro.sonar()
-        game.schedule(2000, { 
+        /*game.schedule(2000, { 
             estaDormido = true 
             
-            }) // El perro se vuelve a dormir después de 2 segundos
+            })*/ // El perro se vuelve a dormir después de 2 segundos
+    }
+ 
+    override method despertar(){
+        estaDormido = false 
+    }
+    
+}
+
+class Dueña inherits Enemigo{
+   
+    method image(){
+        return "dueña" + orientacion + ".png"
+    }
+    override method interactuarCon(unGatito){
+        super (unGatito)
+        unGatito.calcularEnergia(-10)
     }
 }
+
+const perro = new Perro ( position = game.at(6,7))
+const dueña = new Dueña (position= game.at(9,8))
+
 
 object parteTraseraPerro {
     var property position = game.at(7, 6) //a la derecha del perro 
@@ -38,6 +78,7 @@ object parteTraseraPerro {
 
     method interactuarCon(unGatito) {
         perro.interactuarCon(unGatito)
+        perro.despertar()
     }
 }
 
@@ -65,6 +106,9 @@ class Ovillo {
     }
 }
 
+const ovilloUno = new Ovillo(position=game.at(2,2))
+const ovilloDos = new Ovillo(position=game.at(12,2))
+
 class PlatoDeComida {
     var property position //game.at(10,4)
     var estaVacio = false
@@ -86,6 +130,9 @@ class PlatoDeComida {
         }
     }
 }
+
+const unPlato = new PlatoDeComida(position = game.at(10, 4))
+
 object patioDeJuego {
     var property position = game.at(13,10)
 
@@ -109,6 +156,7 @@ class Llave {
         game.removeVisual(self)        
     }
 }
+const unLlave = new Llave(position = game.at(5, 6))
 
 object puerta {
     var property position = game.at(5, 11)
@@ -118,8 +166,7 @@ object puerta {
     method interactuarCon(unGatito) {
         if (unGatito.tieneLlave()) {
             unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
-            nivelDos.iniciar()
-           
+            game.schedule(3000, {nivelDos.iniciar()})
         } else {
             game.say(unGatito, "¡Está cerrada! Necesito encontrar la llave.")
             puertaBloqueada.sonar()
@@ -128,8 +175,8 @@ object puerta {
 }
 
 object charco{
-    method image()= "charco.png"
     var property position = game.at(6, 6)
+    method image()= "charco.png"
 
     method interactuarCon(unGatito){
         //bloquear los movimientos
@@ -139,6 +186,8 @@ object charco{
 
     //añadir cambio de estados cuando colisiona con el charco y producir cambiod de imgns a un gato mojado
 }
+
+//arreglar hitbox del charco
 
 class HitboxPuerta {
     var property position 

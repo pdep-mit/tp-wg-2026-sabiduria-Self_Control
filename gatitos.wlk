@@ -11,7 +11,7 @@ object gatito{
     var tieneLlave = false
     var orientacion = "frente"
     var estaMojado=false
-    var property puedeMoverse=false
+    var property puedeMoverse=true
 
   method estaJugando() = estaJugando
   method tieneLlave() = tieneLlave
@@ -91,9 +91,9 @@ object gatito{
     vidas = vidas - 1
     felicidad = 0
     energia = 100
-    config.mostrarVidas()
+    nivelUno.mostrarVidas()
     if(vidas <= 0) {
-      config.mostrarVidas()
+      nivelUno.mostrarVidas()
       self.terminarJuego("¡Te quedaste sin vidas! Game Over.")
     } else {
       self.position(game.at(7,1)) // Vuelve al inicio si aún tiene vidas

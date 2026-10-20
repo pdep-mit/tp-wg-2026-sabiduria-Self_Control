@@ -3,7 +3,12 @@ class Visual{
     var property image = ""
 }
 
-object fondoDelJuego{
+object escenarioUno {
     var property position = game.at(0,0)
-    method image() = "escenario.jpg"
+    method image() = "escenarioUno.png"
+}
+
+object escenarioDos{
+    var property position = game.at(0,0)
+    method image() ="escenarioDos.png"
 }

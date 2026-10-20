@@ -16,7 +16,7 @@ object movimiento {
 object haciaArriba {
 	// TODO: no se puede subir más arriba del suelo
 	method posicionSiguiente(posicion) { 
-        if (posicion.y() == config.alturaMaxima()-4){
+        if (posicion.y() == nivelUno.alturaMaxima()-4){
             return posicion
         }else {
             return posicion.up(1)
@@ -42,7 +42,7 @@ object haciaAbajo {
 object haciaLaDerecha {
     //ponemos en -2 para evitar la colision con las paredes
 	method posicionSiguiente(posicion) {
-        if (posicion.x() == config.anchoMaximo()-2){
+        if (posicion.x() == nivelUno.anchoMaximo()-2){
             return posicion
         }
         else {
@@ -95,7 +95,7 @@ object movimientoDeLaCaja{
             movimiento.mover(caja, haciaLaIzquierda)
         }
 
-         if (caja.position().x() == config.anchoMaximo() - 2) {
+         if (caja.position().x() == nivelUno.anchoMaximo() - 2) {
             moverseALaDerecha = false
         }
 

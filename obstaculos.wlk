@@ -106,6 +106,9 @@ class Ovillo {
     }
 }
 
+const ovilloUno = new Ovillo (position=game.at(2,2))
+const ovilloDos = new Ovillo(position=game.at(12,2))
+
 class PlatoDeComida {
     var property position //game.at(10,4)
     var estaVacio = false
@@ -127,12 +130,14 @@ class PlatoDeComida {
         }
     }
 }
+
+const unPlato = new PlatoDeComida(position=game.at(10,4))
+
 object patioDeJuego {
     var property position = game.at(13,10)
 
     method image() = "patioDeJuego.png"
     method interactuarCon(unGatito){
-        unGatito.jugar("patio")
         unGatito.jugar("patio")
          if(unGatito.felicidad()>=8){ //puede terminarse en consulta como método
                 brillo.sonar()
@@ -141,7 +146,7 @@ object patioDeJuego {
 }
 
 class Llave {
-    var property position = game.at(1, 1)
+    var property position = game.at(5, 6)
 
     method image() = "llave.png"
 
@@ -150,6 +155,8 @@ class Llave {
         game.removeVisual(self)        
     }
 }
+
+const unaLlave = new Llave (position = game.at(5,6))
 
 object puerta {
     var property position = game.at(5, 11)

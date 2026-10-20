@@ -2,7 +2,6 @@ import wollok.game.*
 import gameConfiguration.*
 
 program JuegoGatitos{
-    config.configurarJuego()
-    //nivelUno.iniciar()
+    nivelUno.iniciar()
     game.start()
 }

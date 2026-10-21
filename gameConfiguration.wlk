@@ -39,11 +39,14 @@ class Nivel {
 	
     //perseguir.seguir(dueña, gatito)
 	method atrapar(){
-		game.schedule(2000, {game.onTick(300, "perseguir", {
+	game.schedule(2000, {game.onTick(300, "perseguir", {
+		// una vez que recibe el hueso, el perro deja de perseguir
+		if(!perro.recibioHueso()) {
 			perseguir.seguir(perro, gatito)
-		})
-		})
-	}
+		}
+	})
+	})
+}
 
 	method mostrarVidas(){
 	//repetir n veces la imagen de vida dependiendo de la cantidad de vidas que tenga el gatito usar .times
@@ -86,7 +89,9 @@ object nivelUno inherits Nivel{
 		/*game.addVisual(caja)*/
 		game.addVisual(perro)
 		//game.addVisual(parteTraseraPerro)
-		game.addVisual(unaLlave)
+		game.addVisual(huesoUno)
+		self.atrapar()
+		// la llave aparece recién cuando el gatito le da el hueso al perro
 		game.addVisual(gatito)	
 		game.addVisual(new HitboxPuerta(position = game.at(6, 11)))
         game.addVisual(new HitboxPuerta(position = game.at(7, 11)))
@@ -106,7 +111,19 @@ object nivelDos inherits Nivel{
 	override method configurarComponentesVisuales(){
 		/*game.addVisual(caja)*/
 		//game.addVisual(perro)
-		//game.addVisual(parteTraseraPerro)		
+		//game.addVisual(parteTraseraPerro)
+		
+		gatito.perderLlave() // la llave del nivel uno ya se usó
+		// Se aleja del borde inferior para no reaparecer sobre la puerta de salida
+		gatito.posicionInicial(game.at(3,4))
+		gatito.position(game.at(3,4))
+		game.addVisual(new HitboxPuertaDos(position = game.at(6, 1)))
+		game.addVisual(new HitboxPuertaDos(position = game.at(7, 1)))
+		game.addVisual(new HitboxPuertaDos(position = game.at(8, 1)))
+		game.addVisual(dueña)
+		game.addVisual(ovilloTres)
+		game.addVisual(unPlatoDos)
+		game.addVisual(gatito)		
 		game.addVisual(charco)
 		game.addVisual(dueña)
 		game.addVisual(gatito)

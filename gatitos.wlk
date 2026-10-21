@@ -9,13 +9,20 @@ object gatito{
     var estaJugando = false
     var jugueteActual = ""
     var tieneLlave = false
+    var tieneHueso = false
     var orientacion = "frente"
     var estaMojado=false
     var property puedeMoverse=true
+    var property posicionInicial = game.at(7,1) // donde reaparece al perder una vida
 
   method estaJugando() = estaJugando
   method tieneLlave() = tieneLlave
   method agarrarLlave() {tieneLlave = true}
+  method perderLlave() {tieneLlave = false}
+
+  method tieneHueso() = tieneHueso
+  method agarrarHueso() {tieneHueso = true}
+  method darHueso() {tieneHueso = false}
 
   method mirarHacia(nuevaOrientacion) {
     orientacion = nuevaOrientacion
@@ -90,13 +97,13 @@ object gatito{
     vidas = vidas - 1
     felicidad = 0
     energia = 100
-    nivelUno.mostrarVidas()
     if(vidas <= 0) {
       nivelUno.mostrarVidas()
       self.terminarJuego("¡Te quedaste sin vidas! Game Over.")
     } else {
-      self.position(game.at(7,1)) // Vuelve al inicio si aún tiene vidas
+      self.position(posicionInicial) // Vuelve al inicio si aún tiene vidas
       self.mirarHacia("frente")
+      nivelUno.mostrarVidas()
     }
    }
   }

@@ -3,8 +3,8 @@ import wollok.game.*
 //Pensado para Generalizar varios efectosDeSonidos entre interacciones de los elementos
 class Sonido { 
     var property archivo                                                                                                                                                                                                              
-    method sonar (melodia){
-        game.sound(melodia).play()
+    method sonar (){
+        game.sound(archivo).play()
     }
 }
 

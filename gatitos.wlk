@@ -8,7 +8,7 @@ object gatito{
     var felicidad = 0//rango de 0 a 10
     var estaJugando = false
     var jugueteActual = ""
-    var tieneLlave = false
+    const inventario = []
     var tieneHueso = false
     var orientacion = "frente"
     var estaMojado=false
@@ -16,9 +16,16 @@ object gatito{
     var property posicionInicial = game.at(7,1) // donde reaparece al perder una vida
 
   method estaJugando() = estaJugando
-  method tieneLlave() = tieneLlave
-  method agarrarLlave() {tieneLlave = true}
-  method perderLlave() {tieneLlave = false}
+  method agarrarLlave(){
+    inventario.add(unaLlave)//agrega 1 llave a la lista sin importar si la dueña le da la llave o si el gato la recoge por si mismo
+  }
+method usarItemPara(unObjeto){
+  if (inventario.contains(unaLlave)){ //si el inventario tiene la llave
+    inventario.forEach({item => item.usarPara(unObjeto,self)})//recorre la lista y usa los objetos que tiene el gato
+  } else {
+    game.say(self,"Necesito encontrar la llave")
+  }
+}
 
   method tieneHueso() = tieneHueso
   method agarrarHueso() {tieneHueso = true}

@@ -209,6 +209,10 @@ class Llave {
         unGatito.agarrarLlave() 
         game.removeVisual(self)        
     }
+
+    method usarPara(unObjeto, unGatito){ //delega la accion en el objeto con el que quiere interactuar
+        unObjeto.abrirCon(unGatito)
+    }
 }
 
 const unaLlave = new Llave (position = game.at(5,6))
@@ -219,13 +223,12 @@ object puerta {
     method image() = "puerta.png"
 
     method interactuarCon(unGatito) {
-        if (unGatito.tieneLlave()) {
-            unGatito.ganarJuego("Ganaste! el siguiente nivel te espera")
-            nivelDos.iniciar()
-        } else {
-            game.say(unGatito, "¡Está cerrada! Necesito encontrar la llave.")
-            puertaBloqueada.sonar()
-        }
+        unGatito.usarItemPara(self)
+    }
+
+    method abrirCon(unGatito){
+        unGatito.ganarJuego("Ganaste!! el siguiente nivel te espera")
+        nivelDos.iniciar()
     }
 }
 
@@ -234,12 +237,11 @@ object puertaDos {
     var property position = game.at(7, 1)
 
     method interactuarCon(unGatito) {
-        if (unGatito.tieneLlave()) {
-            unGatito.terminarJuego("¡Escapaste de la casa! ¡Ganaste!")
-        } else {
-            game.say(unGatito, "¡Está cerrada! Necesito la llave de la dueña.")
-            puertaBloqueada.sonar()
-        }
+        unGatito.usarItemPara(self)
+    }
+
+    method abrirCon(unGatito){
+        unGatito.terminarJuego("Escapaste de la casa, ¡¡Felicidades Ganaste!!")
     }
 }
 

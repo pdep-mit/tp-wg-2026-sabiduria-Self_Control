@@ -188,6 +188,7 @@ class PlatoDeComida {
 const unPlato = new PlatoDeComida(position=game.at(10,4))
 // Elementos del nivel dos, cerca de la dueña para poder llegar a ella con la inmunidad activa
 const unPlatoDos = new PlatoDeComida(position=game.at(10,6))
+const unPlatoTres = new PlatoDeComida(position=game.at(3,4))
 
 
 

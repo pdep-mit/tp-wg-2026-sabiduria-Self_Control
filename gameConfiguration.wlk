@@ -132,6 +132,7 @@ object nivelDos inherits Nivel{
 		game.addVisual(ovilloSeis)
 		game.addVisual(ovilloSiete)
 		game.addVisual(unPlatoDos)	
+		game.addVisual(unPlatoTres)
 		game.addVisual(new HitboxCharco(position = game.at(7, 6)))
 		game.addVisual(new HitboxCharco(position = game.at(8, 6)))
 		game.addVisual(charco)

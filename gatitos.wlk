@@ -35,7 +35,7 @@ object gatito{
     if (vidas <= 0) {
         return "gatitoDerrotado.png"
     } else if (estaJugando) {
-        return "jugandocon" + jugueteActual + ".png" 
+        return "jugandocon" + jugueteActual.sufijoImagen() + ".png" 
     } else if (felicidad >= 8) { 
         return "gatitofeliz" + orientacion + ".png"
     } else if(estaMojado){
@@ -104,8 +104,6 @@ object gatito{
       self.position(posicionInicial) // Vuelve al inicio si aún tiene vidas
       self.mirarHacia("frente")
       nivelUno.mostrarVidas()
-      game.say(self, "¡Auch! Me quedan " + vidas.toString() + " vidas")//borrar?
-      //Mensaje temporal hasta que pongamos una interfaz visual para mostrar las vidas restantes
     }
    }
   }

@@ -37,13 +37,12 @@ class Nivel {
 		/*Aplicamos polimorfismo para que el gatito interactue con cualquier elemento que choque*/
 	}
 	
-    //perseguir.seguir(dueña, gatito)
 	method atrapar(){
 	game.schedule(2000, {game.onTick(300, "perseguir", {
 		// una vez que recibe el hueso, el perro deja de perseguir
 		if(!perro.recibioHueso()) {
 			perseguir.seguir(perro, gatito)
-		}
+		}perseguir.seguir(dueña, gatito)
 	})
 	})
 }
@@ -120,11 +119,11 @@ object nivelDos inherits Nivel{
 		game.addVisual(new HitboxPuertaDos(position = game.at(6, 1)))
 		game.addVisual(new HitboxPuertaDos(position = game.at(7, 1)))
 		game.addVisual(new HitboxPuertaDos(position = game.at(8, 1)))
-		game.addVisual(dueña)
 		game.addVisual(ovilloTres)
-		game.addVisual(unPlatoDos)
-		game.addVisual(gatito)		
+		game.addVisual(unPlatoDos)	
 		game.addVisual(charco)
+		game.addVisual(dueña)
+		game.addVisual(gatito)
 		//Se intento ir por el camino de no usar la funcion game.clear() pues parece que por este motivo las vidas no se muestran en este nivel visualmente. Rever nuevamente esta cuestion
 		// game.removeVisual(ovilloUno)
 		// game.removeVisual(ovilloDos)
@@ -134,5 +133,6 @@ object nivelDos inherits Nivel{
 		// game.removeVisual(perro)
 		// game.removeVisual(puerta)
 		self.mostrarVidas()	
+		self.atrapar()
 	}
 }

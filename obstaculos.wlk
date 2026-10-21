@@ -149,7 +149,7 @@ class Ovillo inherits Juguete{
 
 const ovilloUno = new Ovillo (position = game.at(2,2))
 const ovilloDos = new Ovillo(position = game.at(12,2))
-const ovilloTres = new Ovillo(position=game.at(8,6))
+//const ovilloTres = new Ovillo(position=game.at(8,6))
 const ovilloCuatro = new Ovillo(position=game.at(2,8))
 const ovilloCinco = new Ovillo(position=game.at(12,5))
 const ovilloSeis = new Ovillo(position=game.at(13,8))
@@ -238,8 +238,8 @@ object puerta {
 
 // Salida del nivel dos: está dibujada en el borde inferior de escenarioDos.png, por eso no tiene imagen propia
 object puertaDos {
-    var property position = game.at(7, 1)
-
+    var property position = game.at(5, 11)
+    method image() = "puertanvdos.png"
     method interactuarCon(unGatito) {
         unGatito.usarItemPara(self)
     }

@@ -35,7 +35,7 @@ object gatito{
     if (vidas <= 0) {
         return "gatitoDerrotado.png"
     } else if (estaJugando) {
-        return "jugandocon" + jugueteActual + ".png" 
+        return "jugandocon" + jugueteActual.sufijoImagen() + ".png" 
     } else if (felicidad >= 8) { 
         return "gatitofeliz" + orientacion + ".png"
     } else if(estaMojado){

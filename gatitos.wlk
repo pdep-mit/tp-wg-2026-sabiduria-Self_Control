@@ -82,12 +82,11 @@ object gatito{
   method mojarse(){
     estaMojado=true
     puedeMoverse=false
-    game.removeVisual(charco)
-    game.schedule(3000,{estaMojado=false puedeMoverse=true game.addVisual(charco) self.position(game.at(6,8))})  
+    game.schedule(3000,{estaMojado=false; puedeMoverse=true})  
   }
 
   method perderVida(){
-   if (!inmune || energia == 0){ 
+   if (!inmune && energia == 0){ 
     vidas = vidas - 1
     felicidad = 0
     energia = 100
@@ -98,7 +97,7 @@ object gatito{
     } else {
       self.position(game.at(7,1)) // Vuelve al inicio si aún tiene vidas
       self.mirarHacia("frente")
-      game.say(self, "¡Auch! Me quedan " + vidas.toString() + " vidas")
+      game.say(self, "¡Auch! Me quedan " + vidas.toString() + " vidas")//borrar?
       //Mensaje temporal hasta que pongamos una interfaz visual para mostrar las vidas restantes
     }
    }
@@ -117,15 +116,14 @@ object gatito{
 
 }
 
-object vidaUno{
-  var property position = game.at(10,0)
-  method image() = "conVida.png"
+class Vida {
+  var property position 
+  method image() {
+    return "conVida.png" 
+  }
 }
-object vidaDos{
-  var property position = game.at(11,0)
-  method image() = "conVida.png"
-}
-object vidaTres{
-  var property position = game.at(12,0)
-  method image() = "conVida.png"
-}
+const vidaUno = new Vida(position = game.at(10,0))
+const vidaDos = new Vida(position = game.at(11,0))
+const vidaTres = new Vida(position = game.at(12,0))
+
+

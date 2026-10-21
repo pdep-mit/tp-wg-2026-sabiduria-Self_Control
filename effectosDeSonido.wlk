@@ -1,20 +1,13 @@
 import wollok.game.*
 
 //Pensado para Generalizar varios efectosDeSonidos entre interacciones de los elementos
-class Sonido {
+class Sonido { 
+    var property archivo                                                                                                                                                                                                              
     method sonar (melodia){
         game.sound(melodia).play()
     }
 }
 
-object brillo {
-    method sonar() = game.sound("brillo.mp3").play()
-}
-
-object puertaBloqueada {
-    method sonar () = game.sound("puertaBloqueada.mp3").play()
-}
-
-object gruñidoDePerro{
-    method sonar()= game.sound("gruñidoDePerro.mp3").play() 
-}
+const brillo = new Sonido(archivo = "brillo.mp3")
+const puertaBloqueada = new Sonido(archivo = "puertaBloqueada.mp3")
+const gruñidoDePerro = new Sonido(archivo = "gruñidoDePerro.mp3")

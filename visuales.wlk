@@ -1,4 +1,4 @@
-class Visual{
+class Visual{//cuando se usa??
     var property position = game.at(0,0)
     var property image = ""
 }

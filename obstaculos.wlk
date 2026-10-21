@@ -90,7 +90,7 @@ class Ovillo {
     method image() {
         if (estaDeshecho) {
             return "ovilloDeshecho.png"
-        } else {
+        } else { 
             return "ovillo.png" 
         }
     }
@@ -182,13 +182,15 @@ object charco {
     }
 }
 
-class HitboxPuerta {
+class Hitbox {
     var property position 
-
     method image() = "imagenInvisible.png"
-
+    method objetoVinculado() //abstracto
     method interactuarCon(unGatito) {
-        puerta.interactuarCon(unGatito) 
+        self.objetoVinculado().interactuarCon(unGatito) 
     }
 }
 
+class HitboxPuerta inherits Hitbox {
+    override method objetoVinculado() = puerta
+}

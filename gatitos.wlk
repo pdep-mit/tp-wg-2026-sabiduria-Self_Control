@@ -19,13 +19,24 @@ object gatito{
   method agarrarLlave(){
     inventario.add(unaLlave)//agrega 1 llave a la lista sin importar si la dueña le da la llave o si el gato la recoge por si mismo
   }
-method usarItemPara(unObjeto){
-  if (inventario.contains(unaLlave)){ //si el inventario tiene la llave
-    inventario.forEach({item => item.usarPara(unObjeto,self)})//recorre la lista y usa los objetos que tiene el gato
-  } else {
-    game.say(self,"Necesito encontrar la llave")
+
+  method usarItemPara(unObjeto){
+    if (inventario.contains(unaLlave)){ //si el inventario tiene la llave
+      inventario.forEach({item => item.usarPara(unObjeto,self)})//recorre la lista y usa los objetos que tiene el gato
+    } else {
+      game.say(self,"Necesito encontrar la llave")
+    }
   }
-}
+
+  method tieneLlave() {
+    return inventario.contains(unaLlave)
+  }
+
+  method perderLlave() {
+    if (self.tieneLlave()) {
+        inventario.remove(unaLlave)
+    }
+  }
 
   method tieneHueso() = tieneHueso
   method agarrarHueso() {tieneHueso = true}

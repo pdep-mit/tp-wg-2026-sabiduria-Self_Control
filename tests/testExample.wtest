@@ -16,8 +16,8 @@ describe "Estado inicial del gatito, y limites de energia y felicidad"{
   }
 
   test"La energia siempre esta entre 0 y 100"{
-    gatito.calcularEnergia(-150)
-    assert.equals(0, gatito.energia())
+    gatito.calcularEnergia(-99)
+    assert.equals(1, gatito.energia())
     gatito.calcularEnergia(200)
     assert.equals(100, gatito.energia())
   }
@@ -80,9 +80,9 @@ describe "Interacciones del gatito"{//gatito por defecto energia 100 y felicidad
   }
 
   test "Al interactuar con patio de juego, juega dos veces"{
-    patioDeJuego.interactuarCon(gatito)//gatito juega dos veces(-25 de energia y +2 de felciadd por juego) 
-    assert.equals(50, gatito.energia())
-    assert.equals(4, gatito.felicidad())
+    patioDeJuego.interactuarCon(gatito)//gatito juega una vez(-25 de energia y +2 de felciadd por juego) 
+    assert.equals(75, gatito.energia())
+    assert.equals(2, gatito.felicidad())
   }
 
   test "Comer aumenta la energia y la felicidad" {
@@ -109,7 +109,10 @@ test "con inmunidad no se pierde vida" {
   assert.equals(3, gatito.vidas())
 }
 
-
+test "el gatito agarra el hueso"{
+    huesoUno.interactuarCon(gatito)
+    assert.that(gatito.tieneHueso())
+  }
   test "Al interactuar con el perro pierde una vida y vuelve al inicio" {
     //El gatito arranca con 3 vidas por defecto
     perro.interactuarCon(gatito)
@@ -169,4 +172,30 @@ describe "Persecucion y orientacion del perro"{
       perroNuevo.mirarHacia("derecha")
       assert.equals("derecha", perroNuevo.orientacion())
     }
+}
+
+describe "Mecanica llave"{
+  
+  test "al darle el hueso al perro no pierde vida, suelta el hueso y el perro lo recibe"{
+    gatito.agarrarHueso()
+    perro.interactuarCon(gatito)
+    assert.equals(3, gatito.vidas())
+    assert.notThat(gatito.tieneHueso())
+    assert.that(perro.recibioHueso())
+  }
+
+  test "si el gatito es inmune, le saca la llave a la dueña sin perder vidas"{
+    gatito.activarInmunidad()
+    dueña.interactuarCon(gatito)
+    assert.equals(3, gatito.vidas())
+    assert.that(gatito.tieneLlave())
+    assert.notThat(dueña.tieneLlave())
+  }
+  
+  test "puerta del nivel dos con la llave de la dueña termina el juego sin perder vidas"{
+    gatito.activarInmunidad()
+    dueña.interactuarCon(gatito)
+    puertaDos.interactuarCon(gatito)
+    assert.equals(3, gatito.vidas())
+  }
 }

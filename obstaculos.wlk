@@ -26,9 +26,14 @@ class Enemigo{
 
 class Perro inherits Enemigo  {
     var estaDormido = true
+    var recibioHueso = false
     
+    method recibioHueso() = recibioHueso
+
     method image() {
-        if(estaDormido) {
+        if(recibioHueso) {
+            return "perroDormido.png"//se puede remplazar con otra imagen
+        } else if(estaDormido) {
             return "perroDormido.png"
         } else  {
             return "perro" + orientacion + ".png"
@@ -37,11 +42,24 @@ class Perro inherits Enemigo  {
             
     }
 
-    override method interactuarCon(unGatito) {
-        super (unGatito)
+    method recibirHueso(unGatito) {
+        unGatito.darHueso()
+        recibioHueso = true
+        estaDormido = true
+        game.addVisual(unaLlave) // el perro deja ver la llave que estaba escondiendo
+    }
 
-        estaDormido = false
-        gruñidoDePerro.sonar()
+    override method interactuarCon(unGatito) {
+        // Si ya recibió el hueso está entretenido y no ataca
+        if(!recibioHueso) {
+            if(unGatito.tieneHueso()) {
+                self.recibirHueso(unGatito)
+            } else {
+                super (unGatito)
+                estaDormido = false
+                gruñidoDePerro.sonar()
+            }
+        }
         /*game.schedule(2000, { 
             estaDormido = true 
             
@@ -57,14 +75,30 @@ class Perro inherits Enemigo  {
 const perro = new Perro ( position = game.at(6,7))
 
 class Dueña inherits Enemigo{
+    var tieneLlave = true
    
     method image(){
         return "dueña" + orientacion + ".png"
     }
-    override method interactuarCon(unGatito){
-        super (unGatito)
 
-        unGatito.calcularEnergia(-10)
+    method tieneLlave() = tieneLlave
+
+    method robarLlave(unGatito){
+        tieneLlave = false
+        unGatito.agarrarLlave()
+        game.say(unGatito, "¡Le saqué la llave a la dueña!")
+    }
+
+    override method interactuarCon(unGatito){
+        // Si ya le robaron la llave, no hace nada
+        if(tieneLlave) {
+            if(unGatito.inmune()) {
+                self.robarLlave(unGatito)
+            } else {
+                super (unGatito)
+                unGatito.calcularEnergia(-10)
+            }
+        }
     }
    
 }
@@ -132,6 +166,9 @@ class PlatoDeComida {
 }
 
 const unPlato = new PlatoDeComida(position=game.at(10,4))
+// Elementos del nivel dos, cerca de la dueña para poder llegar a ella con la inmunidad activa
+const ovilloTres = new Ovillo(position=game.at(8,6))
+const unPlatoDos = new PlatoDeComida(position=game.at(10,6))
 
 object patioDeJuego {
     var property position = game.at(13,10)
@@ -144,6 +181,19 @@ object patioDeJuego {
             }
     }
 }
+
+class Hueso {
+    var property position
+
+    method image() = "huesoParaPerro.png"
+
+    method interactuarCon(unGatito) {
+        unGatito.agarrarHueso()
+        game.removeVisual(self)
+    }
+}
+
+const huesoUno = new Hueso(position = game.at(3,7))
 
 class Llave {
     var property position = game.at(5, 6)
@@ -174,6 +224,20 @@ object puerta {
     }
 }
 
+// Salida del nivel dos: está dibujada en el borde inferior de escenarioDos.png, por eso no tiene imagen propia
+object puertaDos {
+    var property position = game.at(7, 1)
+
+    method interactuarCon(unGatito) {
+        if (unGatito.tieneLlave()) {
+            unGatito.terminarJuego("¡Escapaste de la casa! ¡Ganaste!")
+        } else {
+            game.say(unGatito, "¡Está cerrada! Necesito la llave de la dueña.")
+            puertaBloqueada.sonar()
+        }
+    }
+}
+
 object charco {
     var property position = game.at(6,6)
     method image() = "charco.png"
@@ -193,4 +257,8 @@ class Hitbox {
 
 class HitboxPuerta inherits Hitbox {
     override method objetoVinculado() = puerta
+}
+
+class HitboxPuertaDos inherits Hitbox {
+    override method objetoVinculado() = puertaDos
 }

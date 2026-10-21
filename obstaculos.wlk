@@ -149,6 +149,11 @@ class Ovillo inherits Juguete{
 
 const ovilloUno = new Ovillo (position = game.at(2,2))
 const ovilloDos = new Ovillo(position = game.at(12,2))
+const ovilloTres = new Ovillo(position=game.at(8,6))
+const ovilloCuatro = new Ovillo(position=game.at(2,8))
+const ovilloCinco = new Ovillo(position=game.at(12,5))
+const ovilloSeis = new Ovillo(position=game.at(13,8))
+const ovilloSiete = new Ovillo(position=game.at(2,3))
 
 class PatioDeJuego inherits Juguete{
     method image() = "patioDeJuego.png"
@@ -182,7 +187,6 @@ class PlatoDeComida {
 
 const unPlato = new PlatoDeComida(position=game.at(10,4))
 // Elementos del nivel dos, cerca de la dueña para poder llegar a ella con la inmunidad activa
-const ovilloTres = new Ovillo(position=game.at(8,6))
 const unPlatoDos = new PlatoDeComida(position=game.at(10,6))
 
 
@@ -260,6 +264,10 @@ class Hitbox {
     method interactuarCon(unGatito) {
         self.objetoVinculado().interactuarCon(unGatito) 
     }
+}
+
+class HitboxCharco inherits Hitbox {
+    override method objetoVinculado() = charco
 }
 
 class HitboxPuerta inherits Hitbox {

@@ -125,11 +125,18 @@ object nivelDos inherits Nivel{
 		game.addVisual(new HitboxPuertaDos(position = game.at(6, 1)))
 		game.addVisual(new HitboxPuertaDos(position = game.at(7, 1)))
 		game.addVisual(new HitboxPuertaDos(position = game.at(8, 1)))
+		game.addVisual(puertaDos)
 		game.addVisual(ovilloTres)
+		game.addVisual(ovilloCuatro)
+		game.addVisual(ovilloCinco)
+		game.addVisual(ovilloSeis)
+		game.addVisual(ovilloSiete)
 		game.addVisual(unPlatoDos)	
+		game.addVisual(new HitboxCharco(position = game.at(7, 6)))
 		game.addVisual(charco)
 		game.addVisual(dueña)
 		game.addVisual(gatito)
+		
 		//Se intento ir por el camino de no usar la funcion game.clear() pues parece que por este motivo las vidas no se muestran en este nivel visualmente. Rever nuevamente esta cuestion
 		// game.removeVisual(ovilloUno)
 		// game.removeVisual(ovilloDos)

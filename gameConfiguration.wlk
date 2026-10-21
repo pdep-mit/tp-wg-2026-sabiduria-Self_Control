@@ -37,13 +37,12 @@ class Nivel {
 		/*Aplicamos polimorfismo para que el gatito interactue con cualquier elemento que choque*/
 	}
 	
-    //perseguir.seguir(dueña, gatito)
 	method atrapar(){
 	game.schedule(2000, {game.onTick(300, "perseguir", {
 		// una vez que recibe el hueso, el perro deja de perseguir
 		if(!perro.recibioHueso()) {
 			perseguir.seguir(perro, gatito)
-		}
+		}perseguir.seguir(dueña, gatito)
 	})
 	})
 }
@@ -134,5 +133,6 @@ object nivelDos inherits Nivel{
 		// game.removeVisual(perro)
 		// game.removeVisual(puerta)
 		self.mostrarVidas()	
+		self.atrapar()
 	}
 }

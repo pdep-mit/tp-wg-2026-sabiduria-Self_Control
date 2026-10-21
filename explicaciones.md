@@ -17,4 +17,4 @@ Delegación: La aplicamos cuando un objeto le cede una responsabilidad a otro pa
 
 # Diagramas
 
-![Diagrama de clases](imagenes/diagrama.png)
+![Diagrama de clases](imagenes/diagramaEscapeGatuno.png)

@@ -49,16 +49,22 @@ class Nivel {
 
 	method mostrarVidas(){
 	//repetir n veces la imagen de vida dependiendo de la cantidad de vidas que tenga el gatito usar .times
-		if(gatito.vidas()==3){
-			game.addVisual(vidaUno)
-			game.addVisual(vidaDos)
-			game.addVisual(vidaTres)
-		}else if(gatito.vidas()==2){
-			game.addVisual(vidaUno)
-			game.addVisual(vidaDos)
-		}else if(gatito.vidas()==1){
-			game.addVisual(vidaUno)
-		}
+		
+    game.removeVisual(vidaUno)
+    game.removeVisual(vidaDos)
+    game.removeVisual(vidaTres)
+     
+	 //dependiendo la cantidad de vidas, aparecen los corazones 
+    if(gatito.vidas() >= 1){
+        game.addVisual(vidaUno)
+    }
+    if(gatito.vidas() >= 2){
+        game.addVisual(vidaDos)
+    }
+    if(gatito.vidas() >= 3){
+        game.addVisual(vidaTres)
+    
+}
 	}
 
 	method iniciar(){

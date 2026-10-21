@@ -9,7 +9,7 @@ import gameConfiguration.*
 
 class Enemigo{
     var property position 
-    var property orientacion = ""
+    var property orientacion = "frente"
     
     method mirarHacia(nuevaOrientacion){
         orientacion = nuevaOrientacion
@@ -31,10 +31,8 @@ class Perro inherits Enemigo  {
         if(estaDormido) {
             return "perroDormido.png"
         } else  {
-            return "perro" + orientacion + ".png"
-            //return "perroDespierto.png" 
-            }
-            
+            return "perro" + orientacion + ".png" 
+        }  
     }
 
     override method interactuarCon(unGatito) {
@@ -82,9 +80,21 @@ const dueña = new Dueña (position= game.at(9,8))
     }
 }*/
 
-
-class Ovillo {
+class Juguete{
     var property position 
+    method interactuarCon(unGatito) {
+        if (self.puedeUsarse()) {
+            unGatito.jugar(self) 
+            self.efectoAlUsar()
+            if(unGatito.felicidad() >= 8) { brillo.sonar() }
+        }
+    }
+    method puedeUsarse()
+    method efectoAlUsar()
+    method sufijoImagen() 
+}
+
+class Ovillo inherits Juguete{
     var estaDeshecho = false
 
     method image() {
@@ -95,19 +105,24 @@ class Ovillo {
         }
     }
 
-    method interactuarCon(unGatito) {
-        if(!estaDeshecho) {
-            unGatito.jugar("ovillo")
-            estaDeshecho = true
-             if(unGatito.felicidad()>=8){
-                brillo.sonar()
-            }
-        }
+    override method puedeUsarse() = !estaDeshecho
+    override method efectoAlUsar() { 
+        estaDeshecho = true 
     }
+
+    override method sufijoImagen() = "ovillo"
 }
 
-const ovilloUno = new Ovillo (position=game.at(2,2))
-const ovilloDos = new Ovillo(position=game.at(12,2))
+const ovilloUno = new Ovillo (position = game.at(2,2))
+const ovilloDos = new Ovillo(position = game.at(12,2))
+
+class PatioDeJuego inherits Juguete{
+    method image() = "patioDeJuego.png"
+    override method puedeUsarse() = true
+    override method efectoAlUsar() {} //queda vacion porque no se gasta o lo gasto?
+    override method sufijoImagen() = "patio"
+}
+const patioDeJuego = new PatioDeJuego(position = game.at(13, 10))
 
 class PlatoDeComida {
     var property position //game.at(10,4)
@@ -133,17 +148,7 @@ class PlatoDeComida {
 
 const unPlato = new PlatoDeComida(position=game.at(10,4))
 
-object patioDeJuego {
-    var property position = game.at(13,10)
 
-    method image() = "patioDeJuego.png"
-    method interactuarCon(unGatito){
-        unGatito.jugar("patio")
-         if(unGatito.felicidad()>=8){ //puede terminarse en consulta como método
-                brillo.sonar()
-            }
-    }
-}
 
 class Llave {
     var property position = game.at(5, 6)

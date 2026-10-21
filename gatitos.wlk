@@ -86,7 +86,7 @@ object gatito{
   }
 
   method perderVida(){
-   if (!inmune && energia == 0){ 
+   if (!inmune || energia == 0){ 
     vidas = vidas - 1
     felicidad = 0
     energia = 100
@@ -97,8 +97,6 @@ object gatito{
     } else {
       self.position(game.at(7,1)) // Vuelve al inicio si aún tiene vidas
       self.mirarHacia("frente")
-      game.say(self, "¡Auch! Me quedan " + vidas.toString() + " vidas")//borrar?
-      //Mensaje temporal hasta que pongamos una interfaz visual para mostrar las vidas restantes
     }
    }
   }

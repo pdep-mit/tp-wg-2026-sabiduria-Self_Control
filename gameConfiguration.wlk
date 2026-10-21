@@ -106,10 +106,10 @@ object nivelDos inherits Nivel{
 	override method configurarComponentesVisuales(){
 		/*game.addVisual(caja)*/
 		//game.addVisual(perro)
-		//game.addVisual(parteTraseraPerro)
-		
-		game.addVisual(gatito)		
+		//game.addVisual(parteTraseraPerro)		
 		game.addVisual(charco)
+		game.addVisual(dueña)
+		game.addVisual(gatito)
 		//Se intento ir por el camino de no usar la funcion game.clear() pues parece que por este motivo las vidas no se muestran en este nivel visualmente. Rever nuevamente esta cuestion
 		// game.removeVisual(ovilloUno)
 		// game.removeVisual(ovilloDos)

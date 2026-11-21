@@ -32,7 +32,7 @@ El jugador deberá administrar las vidas y utilizar los distintos recursos dispo
 
 ## Controles
 
-TODO
+<img src="./imagenes/controles.png" alt="imagen de flechas"/>
 
 # Explicaciones
 

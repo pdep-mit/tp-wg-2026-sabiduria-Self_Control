@@ -87,7 +87,7 @@ object nivelUno inherits Nivel{
 	override method configurarComponentesVisuales(){
 		self.mostrarVidas()
 		game.addVisual(puerta)
-		game.addVisual(unaLlave)
+		//game.addVisual(unaLlave)
 		game.addVisual(patioDeJuego)
 		game.addVisual(ovilloUno)
 		game.addVisual(ovilloDos)

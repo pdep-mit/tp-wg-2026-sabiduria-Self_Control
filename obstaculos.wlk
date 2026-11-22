@@ -24,6 +24,7 @@ class Enemigo{
     method despertar(){}
 
     method aceptaHueso() = false
+    method aceptaLlave() = false
 }
 
 class Perro inherits Enemigo  {
@@ -231,6 +232,9 @@ class Llave {
     method usarPara(unObjeto, unGatito){ //delega la accion en el objeto con el que quiere interactuar
         unObjeto.abrirCon(unGatito)
     }
+
+    method aceptaHueso() = false
+    method aceptallave() = false
 }
 
 const unaLlave = new Llave (position = game.at(5,6))
@@ -250,6 +254,8 @@ object puerta {
         unGatito.ganarJuego("Ganaste!! el siguiente nivel te espera")
         nivelDos.iniciar()
     }
+    
+    method aceptaHueso() = false
 }
 
 // Salida del nivel dos: está dibujada en el borde inferior de escenarioDos.png, por eso no tiene imagen propia
@@ -265,6 +271,8 @@ object puertaDos {
     method abrirCon(unGatito){
         unGatito.terminarJuego("Escapaste de la casa, ¡¡Felicidades Ganaste!!")
     }
+
+    method aceptaHueso() = false
 }
 
 object charco {

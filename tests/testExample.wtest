@@ -7,7 +7,7 @@ describe "Estado inicial del gatito, y limites de energia y felicidad"{
   }
 
   test "El gatito arranca sin la llave" {
-    assert.notThat(gatito.tieneLlave()) 
+    assert.notThat(gatito.tieneItem(unaLlave)) 
   }
   
   test "el gatito arranca con energia 100 y felicidad 0" {
@@ -109,9 +109,9 @@ test "con inmunidad no se pierde vida" {
   assert.equals(3, gatito.vidas())
 }
 
-test "el gatito agarra el hueso"{
+test "el gatito al interactuar con un hueso lo guarda en su inventario"{
     huesoUno.interactuarCon(gatito)
-    assert.that(gatito.tieneHueso())
+    assert.that(gatito.tieneItem(huesoUno))
   }
   test "Al interactuar con el perro pierde una vida y vuelve al inicio" {
     //El gatito arranca con 3 vidas por defecto
@@ -129,14 +129,14 @@ test "el gatito agarra el hueso"{
     assert.equals(0, gatito.vidas())
   }
 
-  test "Al interactuar con la llave, el gatito cambia su estado a tieneLlave" {
+  test "Al interactuar con la llave, la llave se guarda en el inventario" {
     const llaveDePrueba = new Llave(position = game.at(1,1))
     llaveDePrueba.interactuarCon(gatito)
-    assert.that(gatito.tieneLlave()) 
+    assert.that(gatito.tieneItem(llaveDePrueba)) 
   }
 
   test "Si choca con la puerta SIN tener la llave, el gatito no gana el juego" {
-    assert.notThat(gatito.tieneLlave()) 
+    assert.notThat(gatito.tieneItem(unaLlave)) 
     puerta.interactuarCon(gatito)
     assert.equals(3, gatito.vidas())
   }
@@ -144,7 +144,7 @@ test "el gatito agarra el hueso"{
   test "Si choca con una Hitbox de la puerta SIN llave, no pasa nada" {
     const hitbox = new HitboxPuerta(position = game.at(6, 11))
     hitbox.interactuarCon(gatito)
-    assert.notThat(gatito.tieneLlave())
+    assert.notThat(gatito.tieneItem(unaLlave))
   }
 }
 
@@ -177,10 +177,10 @@ describe "Persecucion y orientacion del perro"{
 describe "Mecanica llave"{
   
   test "al darle el hueso al perro no pierde vida, suelta el hueso y el perro lo recibe"{
-    gatito.agarrarHueso()
+    gatito.agarrarItem(huesoUno)
     perro.interactuarCon(gatito)
     assert.equals(3, gatito.vidas())
-    assert.notThat(gatito.tieneHueso())
+    assert.notThat(gatito.tieneItem(huesoUno))
     assert.that(perro.recibioHueso())
   }
 
@@ -188,7 +188,7 @@ describe "Mecanica llave"{
     gatito.activarInmunidad()
     dueña.interactuarCon(gatito)
     assert.equals(3, gatito.vidas())
-    assert.that(gatito.tieneLlave())
+    assert.that(gatito.tieneItem(unaLlave))
     assert.notThat(dueña.tieneLlave())
   }
   
@@ -197,5 +197,35 @@ describe "Mecanica llave"{
     dueña.interactuarCon(gatito)
     puertaDos.interactuarCon(gatito)
     assert.equals(3, gatito.vidas())
+  }
+}
+
+describe "usos de items"{
+  test "si el item es util encuentra un objeto compatible y devuelve null si nunguno sirve"{
+    const huesoPrueba = new Hueso(position = game.at(1,2))
+    const perroPrueba = new Perro(position = game.at(1,3))
+
+    const puertaNueva = puerta
+
+    gatito.agarrarItem(huesoPrueba)
+
+    //elhueso le sirve al perro pero no para la puerta
+    assert.equals(huesoPrueba, gatito.itemUtilPara(perroPrueba))
+    assert.equals(null, gatito.itemUtilPara(puertaNueva))
+
+  }
+
+  test "si no hay items en el inventario devuelve null"{
+    const perroPrueba = new Perro (position = game.at(3,4))
+    assert.equals(null, gatito.itemUtilPara(perroPrueba))
+  }
+
+  test "llave sirve para las puertas pero no para el perro"{
+    const llavePrueba = new Llave (position = game.at(2,6))
+    const perroPrueba = new Perro (position = game.at(4,3))
+
+    assert.that(llavePrueba.sirvePara(puerta))
+    assert.that(llavePrueba.sirvePara(puertaDos))
+    assert.notThat(llavePrueba.sirvePara(perroPrueba))
   }
 }

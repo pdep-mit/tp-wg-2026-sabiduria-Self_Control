@@ -234,7 +234,7 @@ class Llave {
 
     method usarPara(unObjeto, unGatito){ //delega la accion en el objeto con el que quiere interactuar
         unObjeto.abrirCon(unGatito)
-        unGatito.daritem(self)
+        unGatito.darItem(self)
     }
 
     method aceptaHueso() = false

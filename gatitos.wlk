@@ -151,13 +151,13 @@ object gatito{
  method visualizarInventario(){
     var columna = 1
     inventario.forEach({item => item.position(game.at(columna, 0))
-    if(!game.hasVisual(item)){
+    if(!game.hasVisual(item)){ //si no se muestra en el juego actualmente de agrega 
       game.addVisual(item)
     }
     columna +=1
     })
   }
-  
+
 }
 
 class Vida {

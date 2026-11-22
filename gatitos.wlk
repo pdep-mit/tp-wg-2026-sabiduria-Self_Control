@@ -9,38 +9,40 @@ object gatito{
     var estaJugando = false
     var jugueteActual = ""
     const inventario = []
-    var tieneHueso = false
+    //var tieneHueso = false
     var orientacion = "frente"
     var estaMojado=false
     var property puedeMoverse=true
     var property posicionInicial = game.at(7,1) // donde reaparece al perder una vida
 
-  method estaJugando() = estaJugando
-  method agarrarLlave(){
-    inventario.add(unaLlave)//agrega 1 llave a la lista sin importar si la dueña le da la llave o si el gato la recoge por si mismo
+  
+  method agarrarItem(item){
+    if(!self.tieneItem(item)){ //agarrarLlave y agarrarHueso
+    inventario.add(item)} //agregamos el item al inventario
   }
+
+  method tieneItem(item) =inventario.contains(item) // si el item esta en el inventario
+  
+
+  method darItem(item){  //perderLlave y darHueso
+    inventario.remove(item) //quitamos el item del inventario
+  }
+
+  method estaJugando() = estaJugando
+ 
+ //busca en la lista si algun item cumple con la condicion 
+  method itemUtilPara(unObjeto) = inventario.findOrDefault({item => item.sirvePara(unObjeto)}, null)
+
 
   method usarItemPara(unObjeto){
-    if (inventario.contains(unaLlave)){ //si el inventario tiene la llave
-      inventario.forEach({item => item.usarPara(unObjeto,self)})//recorre la lista y usa los objetos que tiene el gato
+    const item = self.itemUtilPara(unObjeto)
+    if (item != null ){ 
+      item.usarPara(unObjeto, self)
     } else {
-      game.say(self,"Necesito encontrar la llave")
+      game.say(self,"No tengo nada q sirva aca")
     }
   }
 
-  method tieneLlave() {
-    return inventario.contains(unaLlave)
-  }
-
-  method perderLlave() {
-    if (self.tieneLlave()) {
-        inventario.remove(unaLlave)
-    }
-  }
-
-  method tieneHueso() = tieneHueso
-  method agarrarHueso() {tieneHueso = true}
-  method darHueso() {tieneHueso = false}
 
   method mirarHacia(nuevaOrientacion) {
     orientacion = nuevaOrientacion

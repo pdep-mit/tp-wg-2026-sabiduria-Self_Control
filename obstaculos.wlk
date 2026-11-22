@@ -22,13 +22,17 @@ class Enemigo{
     }
 
     method despertar(){}
+
+    method aceptaHueso() = false
 }
 
 class Perro inherits Enemigo  {
+    
     var estaDormido = true
     var recibioHueso = false
     
     method recibioHueso() = recibioHueso
+    override method aceptaHueso() = !recibioHueso
 
     method image() {
         if(recibioHueso) {
@@ -41,7 +45,6 @@ class Perro inherits Enemigo  {
     }
 
     method recibirHueso(unGatito) {
-        unGatito.darHueso()
         recibioHueso = true
         estaDormido = true
         game.addVisual(unaLlave) // el perro deja ver la llave que estaba escondiendo
@@ -49,9 +52,10 @@ class Perro inherits Enemigo  {
 
     override method interactuarCon(unGatito) {
         // Si ya recibió el hueso está entretenido y no ataca
-        if(!recibioHueso) {
-            if(unGatito.tieneHueso()) {
-                self.recibirHueso(unGatito)
+       if(!recibioHueso){
+        const item = unGatito.itemUtilPara(self)
+        if(item != null){
+            item.usarPara(self, unGatito)
             } else {
                 super (unGatito)
                 estaDormido = false
@@ -83,7 +87,7 @@ class Dueña inherits Enemigo{
 
     method robarLlave(unGatito){
         tieneLlave = false
-        unGatito.agarrarLlave()
+        unGatito.agarrarItem(unaLlave)
         game.say(unGatito, "¡Le saqué la llave a la dueña!")
     }
 
@@ -193,8 +197,15 @@ class Hueso {
     method image() = "huesoParaPerro.png"
 
     method interactuarCon(unGatito) {
-        unGatito.agarrarHueso()
+        unGatito.agarrarItem(self)
         game.removeVisual(self)
+    }
+
+    method sirvePara(unObjeto) = unObjeto.aceptaHueso()
+
+    method usarPara(unObjeto, unGatito){
+        unObjeto.recibirHueso(unGatito)
+        unGatito.darItem(self)
     }
 }
 
@@ -206,9 +217,11 @@ class Llave {
     method image() = "llave.png"
 
     method interactuarCon(unGatito) {
-        unGatito.agarrarLlave() 
+        unGatito.agarrarItem(self)
         game.removeVisual(self)        
     }
+
+    method sirvePara(unObjeto) = unObjeto.aceptaLlave()
 
     method usarPara(unObjeto, unGatito){ //delega la accion en el objeto con el que quiere interactuar
         unObjeto.abrirCon(unGatito)
@@ -226,6 +239,8 @@ object puerta {
         unGatito.usarItemPara(self)
     }
 
+    method aceptaLlave() = true
+
     method abrirCon(unGatito){
         unGatito.ganarJuego("Ganaste!! el siguiente nivel te espera")
         nivelDos.iniciar()
@@ -239,6 +254,8 @@ object puertaDos {
     method interactuarCon(unGatito) {
         unGatito.usarItemPara(self)
     }
+
+    method aceptaLlave() = true 
 
     method abrirCon(unGatito){
         unGatito.terminarJuego("Escapaste de la casa, ¡¡Felicidades Ganaste!!")

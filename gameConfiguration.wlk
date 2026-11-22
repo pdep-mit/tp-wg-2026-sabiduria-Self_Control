@@ -117,8 +117,10 @@ object nivelDos inherits Nivel{
 		/*game.addVisual(caja)*/
 		//game.addVisual(perro)
 		//game.addVisual(parteTraseraPerro)
+
 		
-		gatito.perderLlave() // la llave del nivel uno ya se usó
+		gatito.darItem(unaLlave) // la llave del nivel uno ya se usó
+
 		// Se aleja del borde inferior para no reaparecer sobre la puerta de salida
 		gatito.posicionInicial(game.at(3,4))
 		gatito.position(game.at(3,4))

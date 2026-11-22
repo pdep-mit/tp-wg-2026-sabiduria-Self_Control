@@ -1,5 +1,6 @@
 import gameConfiguration.*
 import obstaculos.*
+
 object gatito{
     var property position = game.at(7,1)
     var property vidas = 3

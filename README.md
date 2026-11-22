@@ -19,6 +19,15 @@ Recuerden que para cada checkpoint hay [expectativas mínimas](https://docs.goog
 - Validar su idea con el equipo docente que corresponda por su canal de Discord
 - Para cada checkpoint, asegurar que implementaron lo necesario para esa instancia, y crear un **tag** en el repositorio para facilitar la comparación entre versiones final e intermedias.
 - Para la demo final, crear un nuevo tag **demo** y actualizar este README con todo lo necesario.
+# Capturas
+<p align="center">
+    <img src="./imagenes/capturaUno.png" alt="imagen de flechas"/>
+</p>
+
+<p align="center">
+    <img src="./imagenes/capturaDos.png" alt="imagen de flechas"/>
+</p>
+
 
 # Cómo jugar
 
@@ -31,9 +40,12 @@ La casa estará formada por distintas habitaciones a las que podrá acceder cons
 El jugador deberá administrar las vidas y utilizar los distintos recursos disponibles para superar los desafíos de cada nivel.
 
 ## Controles
+<p align="center">
+    <img src="./imagenes/controles.png" alt="imagen de flechas" style="opacity:0.95"/>
+</p>
 
-TODO
+    Cada dirección de flechas como arriba, abajo, izquierda o derecha. Es el movimiento que se moverá el protagonista.
 
-# Explicaciones
+##  Explicaciones
 
 Las explicaciones teóricas y diagramas van a encontrarse en [explicaciones.md](explicaciones.md) a partir del Checkpoint #2.

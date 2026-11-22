@@ -200,7 +200,7 @@ describe "Mecanica llave"{
   }
 }
 
-describe "usos de items"{
+describe "usos de itemse e inventario"{
   test "si el item es util encuentra un objeto compatible y devuelve null si nunguno sirve"{
     const huesoPrueba = new Hueso(position = game.at(1,2))
     const perroPrueba = new Perro(position = game.at(1,3))
@@ -228,4 +228,5 @@ describe "usos de items"{
     assert.that(llavePrueba.sirvePara(puertaDos))
     assert.notThat(llavePrueba.sirvePara(perroPrueba))
   }
+
 }

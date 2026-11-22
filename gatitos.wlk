@@ -10,7 +10,6 @@ object gatito{
     var estaJugando = false
     var jugueteActual = ""
     const inventario = []
-    //var tieneHueso = false
     var orientacion = "frente"
     var estaMojado=false
     var property puedeMoverse=true
@@ -20,20 +19,29 @@ object gatito{
   method agarrarItem(item){
     if(!self.tieneItem(item)){ //agarrarLlave y agarrarHueso
     inventario.add(item)} //agregamos el item al inventario
+    self.visualizarInventario()
   }
 
   method tieneItem(item) =inventario.contains(item) // si el item esta en el inventario
   
 
   method darItem(item){  //perderLlave y darHueso
+    if (self.tieneItem(item)){
     inventario.remove(item) //quitamos el item del inventario
+    if(game.hasVisual(item)){
+      game.removeVisual(item)
+    }
+    self.visualizarInventario()
   }
-
+  }
   method estaJugando() = estaJugando
  
- //busca en la lista si algun item cumple con la condicion 
+ //busca en la lista si algun item cumple con la condicion y sino devuelve null
   method itemUtilPara(unObjeto) = inventario.findOrDefault({item => item.sirvePara(unObjeto)}, null)
 
+  method inventario() = inventario
+
+ 
 
   method usarItemPara(unObjeto){
     const item = self.itemUtilPara(unObjeto)
@@ -140,6 +148,16 @@ object gatito{
     game.say(self, mensaje)
   }
 
+ method visualizarInventario(){
+    var columna = 1
+    inventario.forEach({item => item.position(game.at(columna, 0))
+    if(!game.hasVisual(item)){
+      game.addVisual(item)
+    }
+    columna +=1
+    })
+  }
+  
 }
 
 class Vida {

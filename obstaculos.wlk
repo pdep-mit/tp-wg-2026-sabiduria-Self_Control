@@ -203,8 +203,10 @@ class Hueso {
     method image() = "huesoParaPerro.png"
 
     method interactuarCon(unGatito) {
-        unGatito.agarrarItem(self)
+        if(!unGatito.tieneItem(self)){
         game.removeVisual(self)
+        unGatito.agarrarItem(self)
+      }
     }
 
     method sirvePara(unObjeto) = unObjeto.aceptaHueso()
@@ -223,14 +225,16 @@ class Llave {
     method image() = "llave.png"
 
     method interactuarCon(unGatito) {
-        unGatito.agarrarItem(self)
-        game.removeVisual(self)        
+        if(unGatito.tieneItem(self))
+        game.removeVisual(self) 
+        unGatito.agarrarItem(self)   
     }
 
     method sirvePara(unObjeto) = unObjeto.aceptaLlave()
 
     method usarPara(unObjeto, unGatito){ //delega la accion en el objeto con el que quiere interactuar
         unObjeto.abrirCon(unGatito)
+        unGatito.daritem(self)
     }
 
     method aceptaHueso() = false

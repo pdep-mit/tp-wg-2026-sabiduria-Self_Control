@@ -67,6 +67,10 @@ class Nivel {
 }
 	}
 
+	method mostrarInventario(){
+		gatito.visualizarInventario()
+	}
+
 	method iniciar(){
 		self.configurarVentana()
 		self.configurarComponentesVisuales()

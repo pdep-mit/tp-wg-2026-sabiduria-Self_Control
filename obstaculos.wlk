@@ -16,13 +16,29 @@ class Enemigo{
         orientacion = nuevaOrientacion
     }
 
-    method estaJugando() = false
 
     method interactuarCon(unGatito){
         unGatito.perderVida()
     }
 
-    method despertar(){}
+    method perseguir(unGatito){
+        if(position.y() < unGatito.position().y()){
+            self.mirarHacia("arriba")
+            movimiento.mover(self, haciaArriba)
+        }
+        else if(position.y() > unGatito.position().y()){
+            self.mirarHacia("abajo")
+            movimiento.mover(self, haciaAbajo)
+        }
+        else if(position.x() < unGatito.position().x()){
+            self.mirarHacia("derecha")
+            movimiento.mover(self, haciaLaDerecha)
+        }
+        else if(position.x() > unGatito.position().x()){
+            self.mirarHacia("izquierda")
+            movimiento.mover(self, haciaLaIzquierda)
+        }
+    }
 
     method aceptaHueso() = false
     method aceptaLlave() = false
@@ -71,14 +87,15 @@ class Perro inherits Enemigo  {
             })*/ // El perro se vuelve a dormir después de 2 segundos
     }
  
-    override method despertar(){
-        estaDormido = false 
+    override method perseguir(unGatito){
+        estaDormido = false
+        super(unGatito)
     }
     override method atrapar(){
 	game.schedule(2000, {game.onTick(300, "perseguir", {
 		// una vez que recibe el hueso, el perro deja de perseguir
 		    if(!perro.recibioHueso()) {
-			    perseguir.seguir(perro, gatito)
+			    self.perseguir(gatito)
 		    }
 	    })
 	})
@@ -117,7 +134,7 @@ class Dueña inherits Enemigo{
         override method atrapar(){
 	        game.schedule(2000, {game.onTick(300, "perseguir", {
 		        // una vez que recibe el hueso, el perro deja de perseguir
-                perseguir.seguir(dueña, gatito)  
+                self.perseguir(gatito)  
 	            })
 	        })
         }
@@ -137,17 +154,26 @@ const dueña = new Dueña (position= game.at(9,8))
     }
 }*/
 
-class Juguete{
-    var property position 
+class ObjetoAyuda{
+    var property position
+
+    // template method: el gatito se beneficia, el objeto se gasta (si corresponde) y puede brillar
     method interactuarCon(unGatito) {
         if (self.puedeUsarse()) {
-            unGatito.jugar(self) 
+            self.beneficiarA(unGatito)
             self.efectoAlUsar()
             if(unGatito.felicidad() >= 8) { brillo.sonar() }
         }
     }
     method puedeUsarse()
+    method beneficiarA(unGatito)
     method efectoAlUsar()
+}
+
+class Juguete inherits ObjetoAyuda{
+    override method beneficiarA(unGatito) {
+        unGatito.jugar(self)
+    }
     method sufijoImagen() 
 }
 
@@ -186,8 +212,7 @@ class PatioDeJuego inherits Juguete{
 }
 const patioDeJuego = new PatioDeJuego(position = game.at(13, 10))
 
-class PlatoDeComida {
-    var property position //game.at(10,4)
+class PlatoDeComida inherits ObjetoAyuda{
     var estaVacio = false
 
     method image() {
@@ -197,14 +222,13 @@ class PlatoDeComida {
             return "platoDeComida.png" 
         }
     }
-    method interactuarCon(unGatito) {
-        if(!estaVacio) {
-            unGatito.comer()
-            estaVacio = true
-            if(unGatito.felicidad()>=8){
-                brillo.sonar()
-            }
-        }
+
+    override method puedeUsarse() = !estaVacio
+    override method beneficiarA(unGatito) {
+        unGatito.comer()
+    }
+    override method efectoAlUsar() {
+        estaVacio = true
     }
 }
 

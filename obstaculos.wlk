@@ -1,6 +1,7 @@
 import movimientos.*
 import effectosDeSonido.*
 import gameConfiguration.*
+import gatitos.*
 /*object caja {
     var property position = game.at(3,4)
     
@@ -25,6 +26,7 @@ class Enemigo{
 
     method aceptaHueso() = false
     method aceptaLlave() = false
+    method atrapar(){}
 }
 
 class Perro inherits Enemigo  {
@@ -72,6 +74,15 @@ class Perro inherits Enemigo  {
     override method despertar(){
         estaDormido = false 
     }
+    override method atrapar(){
+	game.schedule(2000, {game.onTick(300, "perseguir", {
+		// una vez que recibe el hueso, el perro deja de perseguir
+		    if(!perro.recibioHueso()) {
+			    perseguir.seguir(perro, gatito)
+		    }
+	    })
+	})
+}
     
 }
 
@@ -103,7 +114,14 @@ class Dueña inherits Enemigo{
             }
         }
     }
-   
+        override method atrapar(){
+	        game.schedule(2000, {game.onTick(300, "perseguir", {
+		        // una vez que recibe el hueso, el perro deja de perseguir
+                perseguir.seguir(dueña, gatito)  
+	            })
+	        })
+        }
+ 
 }
 
 const dueña = new Dueña (position= game.at(9,8))

@@ -119,11 +119,10 @@ object nivelDos inherits Nivel{
 	}
 
 	override method configurarComponentesVisuales(){
-		/*game.addVisual(caja)*/
+		//game.addVisual(caja)
 		//game.addVisual(perro)
 		//game.addVisual(parteTraseraPerro)
 
-		
 		gatito.darItem(unaLlave) // la llave del nivel uno ya se usó
 
 		// Se aleja del borde inferior para no reaparecer sobre la puerta de salida

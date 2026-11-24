@@ -12,17 +12,22 @@ object gatito{
   var property posicionInicial = game.at(7,1) // donde reaparece al perder una vida
   
   method puedeMoverse() = estado.puedeMoverse()
+  method esInmune() = estado.esInmune()
   method image() = estado.image(self) 
   method orientacion() = orientacion
   method felicidad() = felicidad
   method energia() = energia
-  //method inmune() = estado == inmune porque lo pregunta la dueña
 
+  method volverAEstadoBase() { 
+    if (felicidad >= 10) {
+      self.activarInmunidad() 
+    } else {
+      self.cambiarEstado(normal) 
+    }
+  }
   method calcularFelicidad(variable) {
     felicidad = (felicidad+variable).max(0).min(10)
-    if(felicidad == 10){
-      self.activarInmunidad()
-    }
+    estado.alCambiarFelicidad(self)
   }
 
   method mirarHacia(nuevaOrientacion) {
@@ -42,9 +47,9 @@ object gatito{
 
   method jugar(unJuguete){
     self.calcularEnergia(-25)
-    self.calcularFelicidad(+2)
     self.cambiarEstado(new Jugando(jugueteActual = unJuguete))
-    game.schedule(1000, { self.cambiarEstado(normal) }) 
+    self.calcularFelicidad(+2)
+    game.schedule(1000, { self.volverAEstadoBase() })
   } 
 
   method comer(){ //le sumo valores iniciales "de prueba" casi 1/3 del total
@@ -53,13 +58,18 @@ object gatito{
   }
 
   method activarInmunidad() { 
-  self.cambiarEstado(inmune)                     
-  game.schedule(5000, { self.cambiarEstado(normal)})   
-}
+    self.cambiarEstado(inmune)                     
+    game.schedule(5000, { estado.finalizarTiempoInmunidad(self)})   
+  }
 
+  method terminarInmunidad(){
+    felicidad = 0
+    self.volverAEstadoBase()
+  }
+  
   method mojarse(){ 
     self.cambiarEstado(mojado)
-    game.schedule(3000,{self.cambiarEstado(normal)})  
+    game.schedule(3000,{ self.volverAEstadoBase()})  
   }
 
   method perderVida(){
@@ -146,49 +156,50 @@ const vidaDos = new Vida(position = game.at(11,0))
 const vidaTres = new Vida(position = game.at(12,0))
 
 //Estados
-object normal{
-  method image(gato){
+class Estado{
+  method image(gato)
+  method perderVida(gato){
+    gato.aplicarPerderVida()
+  }
+  method puedeMoverse() = true
+  method alCambiarFelicidad(gato){}
+  method finalizarTiempoInmunidad(gato){}
+}
+object normal inherits Estado{
+  override method image(gato){
     return "gatito" + gato.orientacion() + ".png" 
   }
-  method perderVida(gato){
-    gato.aplicarPerderVida()
-  }
-  method puedeMoverse()=true
+  override method alCambiarFelicidad(gato) { gato.volverAEstadoBase() }
 }
 
-class Jugando{
+class Jugando inherits Estado{
   const jugueteActual 
-  method image(gato){
+  override method image(gato){
     return "jugandocon" + jugueteActual.sufijoImagen() + ".png" 
   }
-  method perderVida(gato){
-    gato.aplicarPerderVida()
-  }
-  method puedeMoverse()=false
+
+  override method puedeMoverse()=false
 }
 
-object mojado{
-  method image(gato){
+object mojado inherits Estado{
+  override method image(gato){
     return "gatoMojado.png" 
   }
-  method perderVida(gato){
-    gato.aplicarPerderVida()
-  }
-  method puedeMoverse()=false
+  override method puedeMoverse()=false
 }
 
-object inmune{
-  method image(gato){
+object inmune inherits Estado{
+  override method image(gato){
     return "gatitofeliz" + gato.orientacion() + ".png"//cambiar por imagen de inmunidad
   }
-  method perderVida(gato){}
-  method puedeMoverse()=true
+  override method perderVida(gato){}
+  override method finalizarTiempoInmunidad(gato){ gato.terminarInmunidad()}
 }
 
-object derrotado{
-  method image(gato){
+object derrotado inherits Estado{
+  override method image(gato){
     return "gatitoDerrotado.png"
   }
-  method perderVida(gato){}
-  method puedeMoverse()=false
+  override method perderVida(gato){}
+  override method puedeMoverse()=false
 }

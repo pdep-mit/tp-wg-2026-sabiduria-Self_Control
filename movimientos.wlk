@@ -3,7 +3,7 @@ import gatitos.*
 
 object movimiento {
 	method mover(personajeLibre, direccion){
-        if(gatito.puedeMoverse()){
+        if(personajeLibre.puedeMoverse()){
             const nuevaPosicion = direccion.posicionSiguiente(personajeLibre.position())
             personajeLibre.position(nuevaPosicion)
         }

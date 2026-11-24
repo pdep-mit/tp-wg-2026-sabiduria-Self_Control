@@ -16,6 +16,7 @@ class Enemigo{
         orientacion = nuevaOrientacion
     }
 
+    method puedeMoverse() = true
 
     method interactuarCon(unGatito){
         unGatito.perderVida()
@@ -123,7 +124,7 @@ class Dueña inherits Enemigo{
     override method interactuarCon(unGatito){
         // Si ya le robaron la llave, no hace nada
         if(tieneLlave) {
-            if(unGatito.inmune()) {
+            if(unGatito.esInmune()) {
                 self.robarLlave(unGatito)
             } else {
                 super (unGatito)

@@ -15,11 +15,13 @@ class Enemigo{
     method mirarHacia(nuevaOrientacion){
         orientacion = nuevaOrientacion
     }
+    method atacar(unGatito) {unGatito.perderVida()}
+    method atacarUnInmune(unGatito){}
 
     method puedeMoverse() = true
 
     method interactuarCon(unGatito){
-        unGatito.perderVida()
+        unGatito.enfrentarA(self)
     }
 
     method perseguir(unGatito){
@@ -123,22 +125,33 @@ class Dueña inherits Enemigo{
 
     override method interactuarCon(unGatito){
         // Si ya le robaron la llave, no hace nada
-        if(tieneLlave) {
+        if(tieneLlave){ super(unGatito) }
+        /* {
             if(unGatito.esInmune()) {
                 self.robarLlave(unGatito)
             } else {
                 super (unGatito)
                 unGatito.calcularEnergia(-10)
             }
-        }
+        }*/
     }
-        override method atrapar(){
-	        game.schedule(2000, {game.onTick(300, "perseguir", {
-		        // una vez que recibe el hueso, el perro deja de perseguir
-                self.perseguir(gatito)  
-	            })
+
+    override method atacar(unGato){
+        super(unGato)
+        unGato.calcularEnergia(-10)
+    }
+
+    override method atacarUnInmune(unGato){
+        self.robarLlave(unGato)
+    }
+
+    override method atrapar(){
+	    game.schedule(2000, {game.onTick(300, "perseguir", {
+	        // una vez que recibe el hueso, el perro deja de perseguir
+            self.perseguir(gatito)  //no deberia recibir por parametro al gato?
 	        })
-        }
+	    })
+    }
  
 }
 

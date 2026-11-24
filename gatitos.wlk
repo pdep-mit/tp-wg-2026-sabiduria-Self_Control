@@ -91,6 +91,10 @@ object gatito{
     nivelUno.mostrarVidas() 
   }
 
+  method enfrentarA(unEnemigo){ 
+    estado.enfrentarA(self, unEnemigo) 
+  }
+
   method terminarJuego(mensaje) {//cambiar para mostrar imagen de derrota
     game.say(self, mensaje)
     game.schedule(2000, { game.stop() }) 
@@ -164,6 +168,9 @@ class Estado{
   method puedeMoverse() = true
   method alCambiarFelicidad(gato){}
   method finalizarTiempoInmunidad(gato){}
+  method enfrentarA(gato, enemigo){ 
+    enemigo.atacar(gato) 
+  }
 }
 object normal inherits Estado{
   override method image(gato){
@@ -194,6 +201,9 @@ object inmune inherits Estado{
   }
   override method perderVida(gato){}
   override method finalizarTiempoInmunidad(gato){ gato.terminarInmunidad()}
+  override method enfrentarA(gato, enemigo){ 
+    enemigo.atacarUnInmune(gato) 
+  }
 }
 
 object derrotado inherits Estado{

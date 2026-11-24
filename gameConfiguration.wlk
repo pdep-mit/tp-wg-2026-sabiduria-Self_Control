@@ -37,16 +37,6 @@ class Nivel {
 		/*Aplicamos polimorfismo para que el gatito interactue con cualquier elemento que choque*/
 	}
 	
-	method atrapar(){
-	game.schedule(2000, {game.onTick(300, "perseguir", {
-		// una vez que recibe el hueso, el perro deja de perseguir
-		if(!perro.recibioHueso()) {
-			perro.perseguir(gatito)
-		}
-		dueña.perseguir(gatito)
-	})
-	})
-}
 
 	method mostrarVidas(){
 	//repetir n veces la imagen de vida dependiendo de la cantidad de vidas que tenga el gatito usar .times
@@ -101,7 +91,7 @@ object nivelUno inherits Nivel{
 		game.addVisual(perro)
 		//game.addVisual(parteTraseraPerro)
 		game.addVisual(huesoUno)
-		self.atrapar()
+		perro.atrapar()
 		// la llave aparece recién cuando el gatito le da el hueso al perro
 		game.addVisual(gatito)	
 		game.addVisual(new HitboxPuerta(position = game.at(6, 11)))
@@ -155,6 +145,6 @@ object nivelDos inherits Nivel{
 		// game.removeVisual(perro)
 		// game.removeVisual(puerta)
 		self.mostrarVidas()	
-		self.atrapar()
+		dueña.atrapar()
 	}
 }

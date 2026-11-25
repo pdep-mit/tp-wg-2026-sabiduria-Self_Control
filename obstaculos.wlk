@@ -126,16 +126,6 @@ class Dueña inherits Enemigo{
         if (tieneLlave && !estaDistraida) { 
             super(unGatito) 
         }
-        // Si ya le robaron la llave, no hace nada
-        if(tieneLlave){ super(unGatito) }
-        /* {
-            if(unGatito.esInmune()) {
-                self.robarLlave(unGatito)
-            } else {
-                super (unGatito)
-                unGatito.calcularEnergia(-10)
-            }
-        }*/
     }
     override method perseguir(unGatito){
         //Si está distrída, no se mueve hacia el gato
@@ -344,7 +334,8 @@ object disfrazDePerro{
 
     method activarEn(unGatito) {
         unGatito.ponerseDisfraz(self)
-        dueña.distraerse()}
+        dueña.distraerse()
+    }
 }
 
 object cofre{ 
@@ -353,9 +344,9 @@ object cofre{
 
     method image() {
         if (estaAbierto) {
-            return "cofreAbierto.png"
+            return "cofreAbiertoVacio.png"
         } else {
-            return "cofreCerrado.png"
+            return "cofre.png"
         }
     }
     method interactuarCon(unGatito) {

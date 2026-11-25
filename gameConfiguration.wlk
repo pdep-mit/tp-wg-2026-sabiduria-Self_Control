@@ -97,11 +97,11 @@ object nivelUno inherits Nivel{
 		game.addVisual(huesoUno)
 		perro.atrapar()
 		// la llave aparece recién cuando el gatito le da el hueso al perro
-		game.addVisual(gatito)	
+		game.addVisual(cofre)
 		game.addVisual(new HitboxPuerta(position = game.at(6, 11)))
         game.addVisual(new HitboxPuerta(position = game.at(7, 11)))
         game.addVisual(new HitboxPuerta(position = game.at(8, 11)))
-		game.addVisual(cofre)
+		game.addVisual(gatito)	
 	}
 
 }
@@ -139,15 +139,6 @@ object nivelDos inherits Nivel{
 		game.addVisual(charco)
 		game.addVisual(dueña)
 		game.addVisual(gatito)
-		
-		//Se intento ir por el camino de no usar la funcion game.clear() pues parece que por este motivo las vidas no se muestran en este nivel visualmente. Rever nuevamente esta cuestion
-		// game.removeVisual(ovilloUno)
-		// game.removeVisual(ovilloDos)
-		// game.removeVisual(unaLlave)
-		// game.removeVisual(patioDeJuego)
-		// game.removeVisual(unPlato)
-		// game.removeVisual(perro)
-		// game.removeVisual(puerta)
 		self.mostrarVidas()	
 		dueña.atrapar()
 	}

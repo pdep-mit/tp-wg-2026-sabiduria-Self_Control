@@ -100,18 +100,14 @@ object gatito{
 
   method usarDisfraz(){
     //si el gato tiene el disfrazDePerro, se activa
-     if (self.tieneItem(disfrazDePerro)) {
-            disfrazDePerro.activarEn(self)
-        } else {
-            game.say(self, "No tengo el disfraz de perro")
-        }
+    if (!self.tieneItem(disfrazDePerro)) { game.say(self, "No tengo el disfraz de perro") }
+    else if (estado.puedeDisfrazarse()) { disfrazDePerro.activarEn(self) }
   }
 
   method ponerseDisfraz(unDisfraz){
     //el gato al usar el disfraz lo saca del inventario 
-    self.darItem(unDisfraz)
-        self.cambiarEstado(disfrazado)
-        game.schedule(5000, { self.volverAEstadoBase() })
+    self.cambiarEstado(disfrazado)
+    game.schedule(5000, { estado.finalizarTiempoDisfraz(self) })
   }
 
   //Inventario
@@ -175,8 +171,12 @@ class Estado{
     gato.aplicarPerderVida()
   }
   method puedeMoverse() = true
-  method alCambiarFelicidad(gato){}
-  method finalizarTiempoInmunidad(gato){}
+  method alCambiarFelicidad(gato){
+    if(gato.felicidad() >= 10){ gato.activarInmunidad() }
+  }
+  method finalizarTiempoInmunidad(gato){} 
+  method puedeDisfrazarse() = false
+  method finalizarTiempoDisfraz(gato){} 
   method enfrentarA(gato, enemigo){ 
     enemigo.atacar(gato) 
   }
@@ -191,9 +191,7 @@ object normal inherits Estado{
     }
     
   }
-  override method alCambiarFelicidad(gato) { 
-    if(gato.felicidad() >= 10) { gato.activarInmunidad()}
-  }
+  override method puedeDisfrazarse() = true
 }
 
 class Jugando inherits Estado{
@@ -223,6 +221,7 @@ object inmune inherits Estado{
     enemigo.atacarUnInmune(gato) 
   }
   override method puedeJugar() = false
+  override method alCambiarFelicidad(gato){}
 }
 
 object derrotado inherits Estado{
@@ -234,10 +233,10 @@ object derrotado inherits Estado{
 }
 
 object disfrazado inherits Estado{
-  override method image(gato) {
-        return "gatitoDisfrazado" + gato.orientacion() + ".png"
-    }
-  override method enfrentarA(gato,enemigo){
+  override method image(gato) = "gatitodisfrazado" + gato.orientacion() + ".png"
+  override method finalizarTiempoDisfraz(gato){ gato.cambiarEstado(normal) }
+  override method puedeJugar() = false
+   override method enfrentarA(gato,enemigo){
     //mientras el gato esté disfrazado, los enemigos no lo atacan al chocar
   }
 }

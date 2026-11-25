@@ -339,7 +339,7 @@ object disfrazDePerro{
 }
 
 object cofre{ 
-    var property position = game.at(12, 9) //puse 1 celda libre del Nivel 1
+    var property position = game.at(2, 9) //puse 1 celda libre del Nivel 1
     var estaAbierto = false //el cofre está cerrado
 
     method image() {

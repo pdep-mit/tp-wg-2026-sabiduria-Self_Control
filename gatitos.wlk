@@ -105,6 +105,22 @@ object gatito{
     game.say(self, mensaje)
   }
 
+  method usarDisfraz(){
+    //si el gato tiene el disfrazDePerro, se activa
+     if (self.tieneItem(disfrazDePerro)) {
+            disfrazDePerro.activarEn(self)
+        } else {
+            game.say(self, "No tengo el disfraz de perro")
+        }
+  }
+
+  method ponerseDisfraz(unDisfraz){
+    //el gato al usar el disfraz lo saca del inventario 
+    self.darItem(unDisfraz)
+        self.cambiarEstado(disfrazado)
+        game.schedule(5000, { self.volverAEstadoBase() })
+  }
+
   //Inventario
   method inventario() = inventario
 
@@ -212,4 +228,13 @@ object derrotado inherits Estado{
   }
   override method perderVida(gato){}
   override method puedeMoverse()=false
+}
+
+object disfrazado inherits Estado{
+  override method image(gato) {
+        return "gatitoDisfrazado" + gato.orientacion() + ".png"
+    }
+  override method enfrentarA(gato,enemigo){
+    //mientras el gato esté disfrazado, los enemigos no lo atacan al chocar
+  }
 }

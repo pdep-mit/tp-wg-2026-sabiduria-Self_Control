@@ -31,6 +31,10 @@ class Nivel {
 			gatito.mirarHacia("derecha")
 			movimiento.mover(gatito, haciaLaDerecha) 
 		})
+		        keyboard.d().onPressDo({ 
+            gatito.usarDisfraz() 
+        })
+
 	 }
 	method configurarColisiones(){
 		game.onCollideDo(gatito, { elemento => elemento.interactuarCon(gatito)})  
@@ -97,7 +101,9 @@ object nivelUno inherits Nivel{
 		game.addVisual(new HitboxPuerta(position = game.at(6, 11)))
         game.addVisual(new HitboxPuerta(position = game.at(7, 11)))
         game.addVisual(new HitboxPuerta(position = game.at(8, 11)))
+		game.addVisual(cofre)
 	}
+
 }
 
 object nivelDos inherits Nivel{

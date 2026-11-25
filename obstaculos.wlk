@@ -110,6 +110,7 @@ const perro = new Perro ( position = game.at(6,7))
 
 class Dueña inherits Enemigo{
     var tieneLlave = true
+    var estaDistraida = false
    
     method image(){
         return "dueña" + orientacion + ".png"
@@ -122,8 +123,17 @@ class Dueña inherits Enemigo{
         unGatito.agarrarItem(unaLlave)
         game.say(unGatito, "¡Le saqué la llave a la dueña!")
     }
+    method distraerse(){
+        estaDistraida = true
+        game.say(self, "¿Un perrito? ¡Qué lindo!")
+        game.schedule(5000, { estaDistraida = false })//Se distrae por 5 segundos
+    }
 
     override method interactuarCon(unGatito){
+        //Solo interactua/ataca si tiene la llave y NO está distraída
+        if (tieneLlave && !estaDistraida) { 
+            super(unGatito) 
+        }
         // Si ya le robaron la llave, no hace nada
         if(tieneLlave){ super(unGatito) }
         /* {
@@ -135,7 +145,12 @@ class Dueña inherits Enemigo{
             }
         }*/
     }
-
+    override method perseguir(unGatito){
+        //Si está distrída, no se mueve hacia el gato
+         if (!estaDistraida) {
+            super(unGatito)
+        }
+    }
     override method atacar(unGato){
         super(unGato)
         unGato.calcularEnergia(-10)
@@ -341,6 +356,37 @@ object charco {
     method interactuarCon(unGatito) {
         unGatito.mojarse()
     }
+}
+
+object disfrazDePerro{
+     var property position = game.at(0, 0)
+      method image() = "disfrazDePerro.png"
+
+    method sirvePara(unObjeto) = false
+
+    method activarEn(unGatito) {
+        unGatito.ponerseDisfraz(self)
+        dueña.distraerse()}
+}
+
+object cofre{ 
+    var property position = game.at(12, 9) //puse 1 celda libre del Nivel 1
+    var estaAbierto = false //el cofre está cerrado
+
+    method image() {
+        if (estaAbierto) {
+            return "cofreAbierto.png"
+        } else {
+            return "cofreCerrado.png"
+        }
+    }
+    method interactuarCon(unGatito) {
+        if (!estaAbierto) {
+            estaAbierto = true
+            unGatito.agarrarItem(disfrazDePerro)
+            game.say(unGatito, "¡Encontré un disfraz de perro!")
+        }
+}
 }
 
 class Hitbox {

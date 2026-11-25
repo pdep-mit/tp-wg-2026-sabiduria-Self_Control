@@ -8,8 +8,8 @@ class PantallaFinal {
   const property position
 }
 
-const pantallaVictoria = new PantallaFinal(image = "victoriajuego.png", position = game.at(4, 6))
-const pantallaDerrota  = new PantallaFinal(image = "finjuego.png",      position = game.at(2, 6))
+const pantallaVictoria = new PantallaFinal(image = "victoriajuego.png", position = game.at(2, 6))
+const pantallaDerrota  = new PantallaFinal(image = "finjuego.png",      position = game.at(5, 6))
 
 object escenarioUno {
     var property position = game.at(0,0)

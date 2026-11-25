@@ -194,6 +194,7 @@ object mojado inherits Estado{
     return "gatoMojado.png" 
   }
   override method puedeMoverse()=false
+  override method enfrentarA(gato,enemigo){}
 }
 
 object inmune inherits Estado{

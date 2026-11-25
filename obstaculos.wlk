@@ -118,7 +118,7 @@ class Dueña inherits Enemigo{
     override method interactuarCon(unGatito){
         // Si ya le robaron la llave, no hace nada
         if(tieneLlave){ super(unGatito) }
-    }
+    } // si quiero que siga haciendo daño tras robar la llave, borrar este override
 
     override method atacar(unGato){
         super(unGato)
@@ -139,7 +139,7 @@ class Dueña inherits Enemigo{
  
 }
 
-const dueña = new Dueña (position= game.at(9,8))
+const dueña = new Dueña (position= game.at(9,8), orientacion = "abajo")
 
 class ObjetoAyuda{
     var property position
@@ -188,11 +188,6 @@ class Ovillo inherits Juguete{
 
 const ovilloUno = new Ovillo (position = game.at(2,2))
 const ovilloDos = new Ovillo(position = game.at(12,2))
-//const ovilloTres = new Ovillo(position=game.at(8,6))
-const ovilloCuatro = new Ovillo(position=game.at(2,8))
-const ovilloCinco = new Ovillo(position=game.at(12,5))
-const ovilloSeis = new Ovillo(position=game.at(13,8))
-const ovilloSiete = new Ovillo(position=game.at(2,3))
 
 class PatioDeJuego inherits Juguete{
     method image() = "patioDeJuego.png"
@@ -287,7 +282,6 @@ object puerta {
     method aceptaLlave() = true
 
     method abrirCon(unGatito){
-        unGatito.ganarJuego("Ganaste!! el siguiente nivel te espera")
         nivelDos.iniciar()
     }
     
@@ -318,6 +312,28 @@ object charco {
         unGatito.mojarse()
     }
 }
+
+class Cascabel inherits Juguete{
+    method image() = "cascabel.png"
+    override method puedeUsarse() = true               
+    override method sufijoImagen() = "cascabel"  
+    override method efectoAlUsar() {                
+        if(game.hasVisual(self)){ game.removeVisual(self) }
+    }    
+}
+
+class Raton inherits Juguete{
+    method image() = "raton.png"
+    override method puedeUsarse() = true
+    override method efectoAlUsar() {                
+        if(game.hasVisual(self)){ game.removeVisual(self) }
+    }
+    override method sufijoImagen() = "raton"    
+}
+
+const ratonUno  = new Raton(position = game.at(2,8))
+const ratonDos  = new Raton(position = game.at(12,5))
+const cascabel  = new Cascabel(position = game.at(2,3))
 
 class Hitbox {
     var property position 

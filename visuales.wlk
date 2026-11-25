@@ -1,7 +1,15 @@
-class Visual{//cuando se usa??
+class Visual{
     var property position = game.at(0,0)
     var property image = ""
 }
+
+class PantallaFinal {
+  const property image
+  const property position
+}
+
+const pantallaVictoria = new PantallaFinal(image = "victoriajuego.png", position = game.at(4, 6))
+const pantallaDerrota  = new PantallaFinal(image = "finjuego.png",      position = game.at(2, 6))
 
 object escenarioUno {
     var property position = game.at(0,0)

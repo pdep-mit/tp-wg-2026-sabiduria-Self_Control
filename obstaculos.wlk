@@ -2,11 +2,7 @@ import movimientos.*
 import effectosDeSonido.*
 import gameConfiguration.*
 import gatitos.*
-/*object caja {
-    var property position = game.at(3,4)
-    
-    method image() = "caja.png"
-}*/
+import visuales.*
 
 class Enemigo{
     var property position 
@@ -84,10 +80,6 @@ class Perro inherits Enemigo  {
                 gruñidoDePerro.sonar()
             }
         }
-        /*game.schedule(2000, { 
-            estaDormido = true 
-            
-            })*/ // El perro se vuelve a dormir después de 2 segundos
     }
  
     override method perseguir(unGatito){
@@ -126,14 +118,6 @@ class Dueña inherits Enemigo{
     override method interactuarCon(unGatito){
         // Si ya le robaron la llave, no hace nada
         if(tieneLlave){ super(unGatito) }
-        /* {
-            if(unGatito.esInmune()) {
-                self.robarLlave(unGatito)
-            } else {
-                super (unGatito)
-                unGatito.calcularEnergia(-10)
-            }
-        }*/
     }
 
     override method atacar(unGato){
@@ -157,17 +141,6 @@ class Dueña inherits Enemigo{
 
 const dueña = new Dueña (position= game.at(9,8))
 
-
-/*object parteTraseraPerro {
-    var property position = game.at(7, 6) //a la derecha del perro 
-
-    method image() = "imagenInvisible.png"
-
-    method interactuarCon(unGatito) {
-        perro.interactuarCon(unGatito)
-    }
-}*/
-
 class ObjetoAyuda{
     var property position
 
@@ -185,6 +158,9 @@ class ObjetoAyuda{
 }
 
 class Juguete inherits ObjetoAyuda{
+    override method interactuarCon(unGatito){
+        if(unGatito.puedeJugar()){ super(unGatito) }
+    }
     override method beneficiarA(unGatito) {
         unGatito.jugar(self)
     }
@@ -221,7 +197,7 @@ const ovilloSiete = new Ovillo(position=game.at(2,3))
 class PatioDeJuego inherits Juguete{
     method image() = "patioDeJuego.png"
     override method puedeUsarse() = true
-    override method efectoAlUsar() {} //queda vacion porque no se gasta o lo gasto?
+    override method efectoAlUsar() {} 
     override method sufijoImagen() = "patio"
 }
 const patioDeJuego = new PatioDeJuego(position = game.at(13, 10))
@@ -329,7 +305,7 @@ object puertaDos {
     method aceptaLlave() = true 
 
     method abrirCon(unGatito){
-        unGatito.terminarJuego("Escapaste de la casa, ¡¡Felicidades Ganaste!!")
+        unGatito.terminarJuego(pantallaVictoria)
     }
 
     method aceptaHueso() = false

@@ -1,5 +1,6 @@
 import gameConfiguration.*
 import obstaculos.*
+import visuales.*
 
 object gatito{
   var property position = game.at(7,1)
@@ -12,19 +13,13 @@ object gatito{
   var property posicionInicial = game.at(7,1) // donde reaparece al perder una vida
   
   method puedeMoverse() = estado.puedeMoverse()
+  method puedeJugar() = estado.puedeJugar()
   method esInmune() = estado.esInmune()
   method image() = estado.image(self) 
   method orientacion() = orientacion
   method felicidad() = felicidad
   method energia() = energia
 
-  method volverAEstadoBase() { 
-    if (felicidad >= 10) {
-      self.activarInmunidad() 
-    } else {
-      self.cambiarEstado(normal) 
-    }
-  }
   method calcularFelicidad(variable) {
     felicidad = (felicidad+variable).max(0).min(10)
     estado.alCambiarFelicidad(self)
@@ -48,8 +43,10 @@ object gatito{
   method jugar(unJuguete){
     self.calcularEnergia(-25)
     self.cambiarEstado(new Jugando(jugueteActual = unJuguete))
-    self.calcularFelicidad(+2)
-    game.schedule(1000, { self.volverAEstadoBase() })
+    game.schedule(1000, { 
+      self.cambiarEstado(normal)
+      self.calcularFelicidad(+2)
+      })
   } 
 
   method comer(){ //le sumo valores iniciales "de prueba" casi 1/3 del total
@@ -58,18 +55,15 @@ object gatito{
   }
 
   method activarInmunidad() { 
+    felicidad = 0 
     self.cambiarEstado(inmune)                     
-    game.schedule(5000, { estado.finalizarTiempoInmunidad(self)})   
-  }
-
-  method terminarInmunidad(){
-    felicidad = 0
-    self.volverAEstadoBase()
+    game.schedule(8000, { estado.finalizarTiempoInmunidad(self)})   
   }
   
   method mojarse(){ 
     self.cambiarEstado(mojado)
-    game.schedule(3000,{ self.volverAEstadoBase()})  
+    felicidad = 0
+    game.schedule(3000,{ self.cambiarEstado(normal)})  
   }
 
   method perderVida(){
@@ -82,8 +76,7 @@ object gatito{
     energia = 100
     if(vidas <= 0) {
       self.cambiarEstado(derrotado)
-      self.terminarJuego("¡Te quedaste sin vidas! Game Over.") 
-    //TODO: cambiar para que muestre pantalla de derrota
+      self.terminarJuego(pantallaDerrota) 
     } else {
       self.position(posicionInicial) // Vuelve al inicio si aún tiene vidas
       self.mirarHacia("frente")
@@ -95,9 +88,9 @@ object gatito{
     estado.enfrentarA(self, unEnemigo) 
   }
 
-  method terminarJuego(mensaje) {//cambiar para mostrar imagen de derrota
-    game.say(self, mensaje)
-    game.schedule(2000, { game.stop() }) 
+  method terminarJuego(pantallaFinal) {
+    game.addVisual(pantallaFinal)
+    game.schedule(3000, {game.stop()})
     //Usamos schedule para dar mas tiempo para leer el mensaje
   }
 
@@ -171,12 +164,20 @@ class Estado{
   method enfrentarA(gato, enemigo){ 
     enemigo.atacar(gato) 
   }
+  method puedeJugar() = true
 }
 object normal inherits Estado{
   override method image(gato){
-    return "gatito" + gato.orientacion() + ".png" 
+    if(gatito.felicidad() >= 8){ 
+      return "gatitofeliz" + gato.orientacion() + ".png" 
+    } else{
+      return "gatito" + gato.orientacion() + ".png" 
+    }
+    
   }
-  override method alCambiarFelicidad(gato) { gato.volverAEstadoBase() }
+  override method alCambiarFelicidad(gato) { 
+    if(gato.felicidad() >= 10) { gato.activarInmunidad()}
+  }
 }
 
 class Jugando inherits Estado{
@@ -197,13 +198,14 @@ object mojado inherits Estado{
 
 object inmune inherits Estado{
   override method image(gato){
-    return "gatitofeliz" + gato.orientacion() + ".png"//cambiar por imagen de inmunidad
+    return "gatitoinmune" + gato.orientacion() + ".png"
   }
   override method perderVida(gato){}
-  override method finalizarTiempoInmunidad(gato){ gato.terminarInmunidad()}
+  override method finalizarTiempoInmunidad(gato){ gato.cambiarEstado(normal)}
   override method enfrentarA(gato, enemigo){ 
     enemigo.atacarUnInmune(gato) 
   }
+  override method puedeJugar() = false
 }
 
 object derrotado inherits Estado{

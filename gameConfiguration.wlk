@@ -106,7 +106,7 @@ object nivelDos inherits Nivel{
 		game.title("CatSurvivor - Nivel Dos")
 		game.clear()
 		game.boardGround("unaCelda.png")
-		game.addVisual(escenarioDos)
+		game.addVisual(escenarioDos) 
 	}
 
 	override method configurarComponentesVisuales(){

@@ -333,7 +333,7 @@ object disfrazDePerro{
     method sirvePara(unObjeto) = false
 
     method activarEn(unGatito) {
-        unGatito.ponerseDisfraz(self)
+        unGatito.ponerseDisfraz()
         dueña.distraerse()
     }
 }

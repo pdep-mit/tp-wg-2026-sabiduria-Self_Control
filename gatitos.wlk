@@ -14,7 +14,6 @@ object gatito{
   
   method puedeMoverse() = estado.puedeMoverse()
   method puedeJugar() = estado.puedeJugar()
-  method esInmune() = estado.esInmune()
   method image() = estado.image(self) 
   method orientacion() = orientacion
   method felicidad() = felicidad
@@ -94,17 +93,13 @@ object gatito{
     //Usamos schedule para dar mas tiempo para leer el mensaje
   }
 
-  method ganarJuego(mensaje){ //cambiar para mostrar imagen de victoria
-    game.say(self, mensaje)
-  }
-
   method usarDisfraz(){
     //si el gato tiene el disfrazDePerro, se activa
     if (!self.tieneItem(disfrazDePerro)) { game.say(self, "No tengo el disfraz de perro") }
     else if (estado.puedeDisfrazarse()) { disfrazDePerro.activarEn(self) }
   }
 
-  method ponerseDisfraz(unDisfraz){
+  method ponerseDisfraz(){
     //el gato al usar el disfraz lo saca del inventario 
     self.cambiarEstado(disfrazado)
     game.schedule(5000, { estado.finalizarTiempoDisfraz(self) })
@@ -184,7 +179,7 @@ class Estado{
 }
 object normal inherits Estado{
   override method image(gato){
-    if(gatito.felicidad() >= 8){ 
+    if(gato.felicidad() >= 8){ 
       return "gatitofeliz" + gato.orientacion() + ".png" 
     } else{
       return "gatito" + gato.orientacion() + ".png" 

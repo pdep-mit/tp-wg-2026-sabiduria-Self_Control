@@ -2,11 +2,7 @@ import movimientos.*
 import effectosDeSonido.*
 import gameConfiguration.*
 import gatitos.*
-/*object caja {
-    var property position = game.at(3,4)
-    
-    method image() = "caja.png"
-}*/
+import visuales.*
 
 class Enemigo{
     var property position 
@@ -84,10 +80,6 @@ class Perro inherits Enemigo  {
                 gruñidoDePerro.sonar()
             }
         }
-        /*game.schedule(2000, { 
-            estaDormido = true 
-            
-            })*/ // El perro se vuelve a dormir después de 2 segundos
     }
  
     override method perseguir(unGatito){
@@ -170,18 +162,7 @@ class Dueña inherits Enemigo{
  
 }
 
-const dueña = new Dueña (position= game.at(9,8))
-
-
-/*object parteTraseraPerro {
-    var property position = game.at(7, 6) //a la derecha del perro 
-
-    method image() = "imagenInvisible.png"
-
-    method interactuarCon(unGatito) {
-        perro.interactuarCon(unGatito)
-    }
-}*/
+const dueña = new Dueña (position= game.at(9,8), orientacion = "abajo")
 
 class ObjetoAyuda{
     var property position
@@ -200,6 +181,9 @@ class ObjetoAyuda{
 }
 
 class Juguete inherits ObjetoAyuda{
+    override method interactuarCon(unGatito){
+        if(unGatito.puedeJugar()){ super(unGatito) }
+    }
     override method beneficiarA(unGatito) {
         unGatito.jugar(self)
     }
@@ -227,16 +211,11 @@ class Ovillo inherits Juguete{
 
 const ovilloUno = new Ovillo (position = game.at(2,2))
 const ovilloDos = new Ovillo(position = game.at(12,2))
-//const ovilloTres = new Ovillo(position=game.at(8,6))
-const ovilloCuatro = new Ovillo(position=game.at(2,8))
-const ovilloCinco = new Ovillo(position=game.at(12,5))
-const ovilloSeis = new Ovillo(position=game.at(13,8))
-const ovilloSiete = new Ovillo(position=game.at(2,3))
 
 class PatioDeJuego inherits Juguete{
     method image() = "patioDeJuego.png"
     override method puedeUsarse() = true
-    override method efectoAlUsar() {} //queda vacion porque no se gasta o lo gasto?
+    override method efectoAlUsar() {} 
     override method sufijoImagen() = "patio"
 }
 const patioDeJuego = new PatioDeJuego(position = game.at(13, 10))
@@ -326,7 +305,6 @@ object puerta {
     method aceptaLlave() = true
 
     method abrirCon(unGatito){
-        unGatito.ganarJuego("Ganaste!! el siguiente nivel te espera")
         nivelDos.iniciar()
     }
     
@@ -344,7 +322,7 @@ object puertaDos {
     method aceptaLlave() = true 
 
     method abrirCon(unGatito){
-        unGatito.terminarJuego("Escapaste de la casa, ¡¡Felicidades Ganaste!!")
+        unGatito.terminarJuego(pantallaVictoria)
     }
 
     method aceptaHueso() = false
@@ -388,6 +366,28 @@ object cofre{
         }
 }
 }
+
+class Cascabel inherits Juguete{
+    method image() = "cascabel.png"
+    override method puedeUsarse() = true               
+    override method sufijoImagen() = "cascabel"  
+    override method efectoAlUsar() {                
+        if(game.hasVisual(self)){ game.removeVisual(self) }
+    }    
+}
+
+class Raton inherits Juguete{
+    method image() = "raton.png"
+    override method puedeUsarse() = true
+    override method efectoAlUsar() {                
+        if(game.hasVisual(self)){ game.removeVisual(self) }
+    }
+    override method sufijoImagen() = "raton"    
+}
+
+const ratonUno  = new Raton(position = game.at(2,8))
+const ratonDos  = new Raton(position = game.at(12,5))
+const cascabel  = new Cascabel(position = game.at(2,3))
 
 class Hitbox {
     var property position 

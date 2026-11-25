@@ -112,7 +112,7 @@ object nivelDos inherits Nivel{
 		game.title("CatSurvivor - Nivel Dos")
 		game.clear()
 		game.boardGround("unaCelda.png")
-		game.addVisual(escenarioDos)
+		game.addVisual(escenarioDos) 
 	}
 
 	override method configurarComponentesVisuales(){
@@ -129,11 +129,9 @@ object nivelDos inherits Nivel{
 		game.addVisual(new HitboxPuertaDos(position = game.at(7, 11)))
 		game.addVisual(new HitboxPuertaDos(position = game.at(8, 11)))
 		game.addVisual(puertaDos)
-		//game.addVisual(ovilloTres)
-		game.addVisual(ovilloCuatro)
-		game.addVisual(ovilloCinco)
-		game.addVisual(ovilloSeis)
-		game.addVisual(ovilloSiete)
+		game.addVisual(ratonUno)
+		game.addVisual(ratonDos)
+		game.addVisual(cascabel)
 		game.addVisual(unPlatoDos)	
 		game.addVisual(unPlatoTres)
 		game.addVisual(new HitboxCharco(position = game.at(7, 6)))
